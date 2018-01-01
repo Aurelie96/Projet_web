@@ -1,0 +1,17 @@
+{
+    "require": {
+        "silex/silex": "*",
+        "doctrine/dbal": "*",
+        "twig/twig": "*",
+        "symfony/twig-bridge": "*",
+        "symfony/security": "*",
+        "symfony/form": "*",
+        "symfony/translation": "*",
+        "twig/extensions": "*",
+        "symfony/validator": "*",
+        "symfony/config": "*"
+    },
+    "autoload": {
+        "psr-4": {"PPE_PHP_GSB\\": "src"}
+    }
+}
