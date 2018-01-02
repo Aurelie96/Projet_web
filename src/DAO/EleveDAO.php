@@ -49,10 +49,10 @@ class EleveDAO extends DAO{
      */
     protected function buildDomainObject($row) {
         $eleve = new Eleve();
-        $eleve->setId($row['idEleve']);
-        $eleve->setId($row['nom']);
-        $eleve->setId($row['prenom']);
-        $eleve->setId($row['idClasse']);
+        $eleve->setIdEleve($row['idEleve']);
+        $eleve->setNom($row['nom']);
+        $eleve->setPrenom($row['prenom']);
+        $eleve->setIdClasse($row['idClasse']);
 
         return $eleve;
     }
