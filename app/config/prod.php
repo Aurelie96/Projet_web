@@ -8,7 +8,7 @@ $app['db.options'] = array(
     'charset' => 'utf8',
     'host' => 'localhost',
     'port' => '3306',
-    'dbname' => 'ecole',
-    'user' => 'root',
-    'password' => 'root',
+    'dbname' => 'projetWebCesi',
+    'user' => 'projetWebCesi',
+    'password' => 'projetWebCesi',
 );
