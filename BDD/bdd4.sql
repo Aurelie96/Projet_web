@@ -59,8 +59,8 @@ CREATE TABLE ELEVES(
         idEleve     int (11) Auto_increment  NOT NULL ,
         nomEleve    Varchar (25) ,
         prenomEleve Varchar (25) ,
-        loginEleve  Varchar (250) ,
-        mdpEleve    Varchar (250) ,
+        loginEleve  Varchar (255) ,
+        mdpEleve    Varchar (255) ,
         idClasse    Int ,
         idSexe      Int ,
         PRIMARY KEY (idEleve )
@@ -86,8 +86,8 @@ CREATE TABLE PROFESSEURS(
         idProfesseur     int (11) Auto_increment  NOT NULL ,
         nomProfesseur    Varchar (25) ,
         prenomProfesseur Varchar (25) ,
-        loginProfesseur  Varchar (250) ,
-        mdpProfesseur    Varchar (250) ,
+        loginProfesseur  Varchar (255) ,
+        mdpProfesseur    Varchar (255) ,
         idSexe           Int ,
         PRIMARY KEY (idProfesseur )
 )ENGINE=InnoDB;

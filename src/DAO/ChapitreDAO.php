@@ -35,4 +35,51 @@ class ChapitreDAO extends DAO{
         }
         return $chapitres;
     }
+
+    /**
+     * Retourne un chapitre en fonction de l'ID
+     * 
+     * @param integer $id la référence du chapitre
+     * 
+     * @return \Projet_web\Domaine\chapitre
+     */
+    public function find($id){
+        $sql = "select * from chapitre where id=?";
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
+
+        if($row)
+            return $this->buildDomainObject($row);
+        else    
+            throw new \Exception("Pas de chapitre pour cette référence " . $id);
+    }
+
+    public function save(Chapitre $chapitre){
+        $chapitreData = array(
+            'titre'=> $chapitre->getTitre(),
+            'idNiveau'=>$chapitre->getIdNiveau()
+            );
+        
+        if($chapitre->getId()){
+            $this->getDb()->update('chapitre', $chapitreData, array('id' => $chapitre->getId()));
+        } else{
+            $this->getDb()->insert('chapitre', $chapitreData);
+            $id = $this->getDb()->lastInsertID();
+            $visiteur->setId($id);
+        }
+
+    }
+
+    public function delete($id){
+        $sql = "delete from chapitre where idChapitre =" .$id;
+        $this->getDb()->exec($sql);
+    }
+
+    protected function buildDomainObject($row){
+        $chapitre = new Chapitre();
+        $chapitre->setId($row['id']);
+        $chapitre->setTitre($row['titre']);
+        $chapitre->setIdNiveau($row['idNiveau']);
+        return $chapitre;
+    }
+
 }
