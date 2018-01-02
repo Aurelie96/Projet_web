@@ -6,38 +6,54 @@ use Projet_Web\Domain\Eleve;
 
 class EleveDAO extends DAO{
 
+    /**
+     * Assure la connexion de l'élève.
+     * Retourne TRUE si les informations utilisateurs sont correctes sinon FALSE
+     * 
+     * @var bool
+     */
     public function connectEleve($login, $pass) {
-        $sql = "SELECT * FROM";
+        $r = false;
+        $sql = "SELECT * FROM Eleves WHERE loginEleve = :login AND mdpEleve = :pass";
+        $req = $this->getDb()->prepare($sql);
+        
+        if ($req->execute(array(
+            'login'=>$login,
+            'mdpEleve'=>$pass
+        ))) {
+            if ($req->rowCount() > 0) {
+                $r = true;
+
+                $result = $req->fetchAll();
+
+                // converti le résultat en un tableau d'objet
+                $connectEleve = array();
+                foreach($result as $row) {
+                    $eleve = $this->buildDomainObject($row);
+                }
+            }
+        }
+
+        return $r;
     }
 
     /**
-     * Retourne une liste de l'ensemble des chapitre de la table chapitre.
-     * 
-     * @return array une liste de tous les visiteurs.
-     *//*
-    public function findAll(){
-        $sql = "select * from chapitre";
-        $result = $this->getDb()->fetchAll($sql);
+     * Déconnecte l'utilisateur
+     */
+    public function disconnectEleve() {
 
-        // Convertit les resultat query en un array d'objets
-        $chapitres = array();
-        foreach ($result as $row){
-            $chapitreId = $row['id'];
-            $chapitres[$chapitreId] = $this->buildDomainObject($row);
-        }
-        return $chapitres;
     }
 
-    public function findChapitresByNiveau($idNiveau){
-        $sql = "select * from chapitre where idNiveau = ".$idNiveau." order by idChapitre asc";
-        $result = $this->getDb()->fetchAll($sql);
+    /**
+     * Construit et instancie l'objet ELEVE
+     */
+    protected function buildDomainObject($row) {
+        $eleve = new Eleve();
+        $eleve->setId($row['idEleve']);
+        $eleve->setId($row['nom']);
+        $eleve->setId($row['prenom']);
+        $eleve->setId($row['idClasse']);
 
-        //Convertit le résultat de la requête en une liste
-        $chapitres = array();
-        foreach ($result as $row){
-            $chapitreId = $row['id'];
-            $chapitres[$chapitreId] = $this->buildDomainObject($row);
-        }
-        return $chapitres;
-    }*/
+        return $eleve;
+    }
 }

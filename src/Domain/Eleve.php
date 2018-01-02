@@ -9,7 +9,7 @@ class Eleve {
      * 
      * @var integer
      */
-    private $id;
+    private $idEleve;
 
     /**
      * Nom de l'élève
@@ -34,12 +34,12 @@ class Eleve {
 
     ////////////////////////////////////////
 
-    public function getId() {
-        return $this->id;
+    public function getIdEleve() {
+        return $this->idEleve;
     }
 
-    public function setId($id) {
-        $this->id = $id;
+    public function setIdEleve($idEleve) {
+        $this->idEleve = $idEleve;
     }
 
     public function getNom() {
