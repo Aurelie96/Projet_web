@@ -34,31 +34,27 @@ class ClasseDAO extends DAO{
             'nom' => $classe->getNom(),
             'idNiveau' => $classe->getIdNiveau(),
             'idAnnee' => $classe->getIdAnnee(),
-        );                            
+        ); 
+        
+        if($classe->getId()){
+            $this->getDb()->update('classe', $classeData, array('id' => $classe->getId()));
+        }else {
+            $this->getDb()->insert('classe', $classeData);
+            $id = $this-getDb()->lastInsertId();
+            $classe->setId($id);
+        }
     }
-}
 
-public function save(Niveau $niveau){
-    $niveauData = array(
-        'id' => $niveau->getId(),
-        'titre' => $niveau->getTitre(),
-    );
-    if($niveau->getId()){
-        $this->getDb()->update('niveau', $niveauData, array('id' => $niveau->getId()));
-    }else {
-        $this->getDb()->insert('niveau', $niveauData);
-        $id = $this->getDb()->lastInsertId();
-        $competence->setId($id);
+    public function delete($id){
+        $this->getDb()->delete('classe', array('id' => $id));
     }
-}
 
-public function delete($id){
-    $this->getDb()->delete('niveau', array('id' => $id));
-}
-
-protected function buildDomainObject($row){
-    $niveau = new Niveau();
-    $niveau->setId($row['id']);
-    $niveau->setTitre($row['titre']);
-    return $niveau;
+    protected function buildDomainObject($row){
+        $classe = new Classe();
+        $classe->setId($row['id']);
+        $classe->setNom($row['nom']);
+        $classe->setIdNiveau($row['idNiveau']);
+        $classe->setIdAnnee($row['idAnnee']);
+        return $classe;
+    }
 }
