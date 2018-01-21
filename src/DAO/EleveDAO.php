@@ -19,7 +19,7 @@ class EleveDAO extends DAO{
         
         if ($req->execute(array(
             'login'=>$login,
-            'mdpEleve'=>$pass
+            'mdpEleve'=>hash('sha256', $pass) // https://secure.php.net/manual/fr/function.hash.php
         ))) {
             if ($req->rowCount() > 0) {
                 $r = true;
@@ -41,7 +41,7 @@ class EleveDAO extends DAO{
      * Déconnecte l'utilisateur
      */
     public function disconnectEleve() {
-
+        
     }
 
     /**

@@ -15,5 +15,24 @@ class FunctionsDAO{
         $string = str_replace('&euro;',chr(128),$string);
         $string = html_entity_decode($string,ENT_NOQUOTES,'ISO-8859-15');
         return $string;
-    }    
+    }
+    
+    /**
+     * Active les sessions
+     * https://secure.php.net/manual/fr/function.session-status.php
+     * 
+     * @var string
+     */
+    public static function ActiveSession() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    public static function StopSession() {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_reset();
+            session_abort();
+        }
+    }
 }

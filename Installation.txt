@@ -7,3 +7,9 @@ lors de l'installation, quand ils vous demande de choisir un fichier aller : \Uw
 Apr�s ouvrez une commande et faire composer install
 
 Si vous modifier le composer.json il faut faire composer update
+
+// tuto de première utilisation :
+https://openclassrooms.com/courses/premiers-pas-avec-le-framework-php-silex
+
+// tuto d'utilisation approfondie :
+https://openclassrooms.com/courses/evoluez-vers-une-architecture-php-professionnelle/iteration-3-integration-du-framework-php-silex
