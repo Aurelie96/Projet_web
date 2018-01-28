@@ -1,30 +1,39 @@
 <?php
 
-namespace Projet_web\DAO;
+namespace PPE_PHP_GSB\DAO;
 
 use Doctrine\DBAL\Connection;
 
-abstract class  DAO
+abstract class DAO 
 {
+    /**
+     * Database connection
+     *
+     * @var \Doctrine\DBAL\Connection
+     */
     private $db;
 
     /**
-     * Consructeur
+     * Constructor
+     *
+     * @param \Doctrine\DBAL\Connection The database connection object
      */
-    public function __construct(Connection $db){
+    public function __construct(Connection $db) {
         $this->db = $db;
     }
 
-
     /**
-     * Recupère la variable de connection
+     * Grants access to the database connection object
+     *
+     * @return \Doctrine\DBAL\Connection The database connection object
      */
-    protected function getDb(){
+    protected function getDb() {
         return $this->db;
     }
 
     /**
-     * Construction d'un objet 
+     * Builds a domain object from a DB row.
+     * Must be overridden by child classes.
      */
-    protected abstract function builDomainObject($row);
+    protected abstract function buildDomainObject($row);
 }

@@ -57,15 +57,22 @@ CREATE TABLE CLASSES(
 
 CREATE TABLE ELEVES(
         idEleve     int (11) Auto_increment  NOT NULL ,
-        nomEleve    Varchar (25) ,
-        prenomEleve Varchar (25) ,
-        loginEleve  Varchar (250) ,
-        mdpEleve    Varchar (250) ,
+        nomEleve    Varchar (250) ,
+        prenomEleve Varchar (250) ,
         idClasse    Int ,
         idSexe      Int ,
+        idUtilisateur Int,
         PRIMARY KEY (idEleve )
 )ENGINE=InnoDB;
 
+
+CREATE TABLE `utilisateurs` (
+  `idUtilisateur` int(11) NOT NULL,
+  `loginUtilisateur` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `mdpUtilisateur` varchar(88) COLLATE utf8_unicode_ci NOT NULL,
+  `saltUtilisateur` varchar(23) COLLATE utf8_unicode_ci NOT NULL,
+  `roleUtilisateur` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 #------------------------------------------------------------
 # Table: ANNEE
@@ -84,11 +91,10 @@ CREATE TABLE ANNEE(
 
 CREATE TABLE PROFESSEURS(
         idProfesseur     int (11) Auto_increment  NOT NULL ,
-        nomProfesseur    Varchar (25) ,
-        prenomProfesseur Varchar (25) ,
-        loginProfesseur  Varchar (250) ,
-        mdpProfesseur    Varchar (250) ,
+        nomProfesseur    Varchar (250) ,
+        prenomProfesseur Varchar (250) ,
         idSexe           Int ,
+        idUtilisateur Int,
         PRIMARY KEY (idProfesseur )
 )ENGINE=InnoDB;
 
@@ -138,3 +144,5 @@ ALTER TABLE NOTATION ADD CONSTRAINT FK_NOTATION_idCompetence FOREIGN KEY (idComp
 ALTER TABLE NOTATION ADD CONSTRAINT FK_NOTATION_idEleve FOREIGN KEY (idEleve) REFERENCES ELEVES(idEleve);
 ALTER TABLE PROF_CLASSE ADD CONSTRAINT FK_PROF_CLASSE_idClasse FOREIGN KEY (idClasse) REFERENCES CLASSES(idClasse);
 ALTER TABLE PROF_CLASSE ADD CONSTRAINT FK_PROF_CLASSE_idProfesseur FOREIGN KEY (idProfesseur) REFERENCES PROFESSEURS(idProfesseur);
+ALTER TABLE PROFESSEURS ADD CONSTRAINT FK_PROFESSEURS_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES utilisateurs(idUtilisateur);
+ALTER TABLE ELEVES ADD CONSTRAINT FK_ELEVES_idUtilisateur FOREIGN KEY (idUtilisateur) REFERENCES utilisateurs(idUtilisateur);
