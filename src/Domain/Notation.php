@@ -2,45 +2,65 @@
 
 namespace Projet_web\Domain;
 
-class Notation{
+class Notation 
+{
+    /**
+     * Notation idNotation.
+     *
+     * @var integer
+     */
+    private $idNotation;
 
-    private $id;
-    
-    private $libelle;
+    /**
+     * Notation libelleNotation.
+     *
+     * @var string
+     */
+    private $libelleNotation;
 
+    /**
+     * Notation idCompetence.
+     *
+     * @var integer
+     */
     private $idCompetence;
 
+    /**
+     * Notation idEleve.
+     *
+     * @var integer
+     */
     private $idEleve;
 
-    public function getId(){
-        return $this->id;
+    public function getIdNotation() {
+        return $this->idNotation;
     }
 
-    public function setId($id){
-        $this->id = $id;
+    public function setIdNotation($idNotation) {
+        $this->idNotation = $idNotation;
     }
 
-    public function getLibelle(){
-        return $this->libelle;
+    public function getLibelleNotation() {
+        return $this->libelleNotation;
     }
 
-    public function setLibelle($libelle){
-        $this->libelle = $libelle;
+    public function setLibelleNotation($libelleNotation) {
+        $this->libelleNotation = $libelleNotation;
     }
 
-    public function getIdCompetence(){
+    public function getIdCompetence() {
         return $this->idCompetence;
     }
 
-    public function setIdCompetence($idCompetence){
+    public function setIdCompetence($idCompetence) {
         $this->idCompetence = $idCompetence;
     }
 
-    public function getIdEleve(){
+    public function getIdEleve() {
         return $this->idEleve;
     }
 
-    public function setIdEleve($idEleve){
+    public function setIdEleve($idEleve) {
         $this->idEleve = $idEleve;
     }
 }

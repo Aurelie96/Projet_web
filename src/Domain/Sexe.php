@@ -2,25 +2,35 @@
 
 namespace Projet_web\Domain;
 
-class Sexe{
+class Sexe 
+{
+    /**
+     * Sexe idSexe.
+     *
+     * @var integer
+     */
+    private $idSexe;
 
-    private $id;
-    
-    private $nom;
+    /**
+     * Sexe nomSexe.
+     *
+     * @var string
+     */
+    private $nomSexe;
 
-    public function getId(){
-        return $this->id;
+    public function getIdSexe() {
+        return $this->idSexe;
     }
 
-    public function setId($id){
-        $this->id = $id;
+    public function setIdSexe($idSexe) {
+        $this->idSexe = $idSexe;
     }
 
-    public function getNom(){
-        return $this->nom;
+    public function getNomSexe() {
+        return $this->nomSexe;
     }
 
-    public function setNom($nom){
-        $this->nom = $nom;
+    public function setNomSexe($nomSexe) {
+        $this->nomSexe = $nomSexe;
     }
 }
