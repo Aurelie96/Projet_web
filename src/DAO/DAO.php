@@ -1,6 +1,6 @@
 <?php
 
-namespace PPE_PHP_GSB\DAO;
+namespace Projet_web\DAO;
 
 use Doctrine\DBAL\Connection;
 

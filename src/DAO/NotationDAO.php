@@ -1,8 +1,8 @@
 <?php
 
-namespace ECOLE\DAO;
+namespace Projet_web\DAO;
 
-use ECOLE\Domain\Notation;
+use Projet_web\Domain\Notation;
 
 class NotationDAO extends DAO
 {

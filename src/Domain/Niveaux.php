@@ -1,6 +1,6 @@
 <?php
 
-namespace ECOLE\Domain;
+namespace Projet_web\Domain;
 
 class Niveaux 
 {

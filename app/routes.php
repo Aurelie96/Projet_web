@@ -1,17 +1,18 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use ECOLE\Domain\Annees;
-use ECOLE\Domain\Chapitres;
-use ECOLE\Domain\Classes;
-use ECOLE\Domain\Competences;
-use ECOLE\Domain\Eleves;
-use ECOLE\Domain\Niveaux;
-use ECOLE\Domain\Notation;
-use ECOLE\Domain\ProfClasse;
-use ECOLE\Domain\Professeurs;
-use ECOLE\Domain\Sexe;
-use ECOLE\Domain\Utilisateurs;
+use Projet_web\Domain\Annees;
+use Projet_web\Domain\Chapitres;
+use Projet_web\Domain\Classes;
+use Projet_web\Domain\Competences;
+use Projet_web\Domain\Eleves;
+use Projet_web\Domain\Niveaux;
+use Projet_web\Domain\Notation;
+use Projet_web\Domain\ProfClasse;
+use Projet_web\Domain\Professeurs;
+use Projet_web\Domain\Sexe;
+use Projet_web\Domain\Utilisateurs;
+use Projet_web\Form\Type\UtilisateursType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {

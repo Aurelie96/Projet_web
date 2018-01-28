@@ -1,12 +1,12 @@
 <?php
 
-namespace ECOLE\DAO;
+namespace Projet_web\DAO;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use ECOLE\Domain\Utilisateurs;
+use Projet_web\Domain\Utilisateurs;
 
 class UtilisateursDAO extends DAO implements UserProviderInterface
 {

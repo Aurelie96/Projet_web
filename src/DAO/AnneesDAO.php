@@ -1,8 +1,8 @@
 <?php
 
-namespace ECOLE\DAO;
+namespace Projet_web\DAO;
 
-use ECOLE\Domain\Annees;
+use Projet_web\Domain\Annees;
 
 class AnneesDAO extends DAO
 {

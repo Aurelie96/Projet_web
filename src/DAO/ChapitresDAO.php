@@ -1,8 +1,8 @@
 <?php
 
-namespace ECOLE\DAO;
+namespace Projet_web\DAO;
 
-use ECOLE\Domain\Chapitres;
+use Projet_web\Domain\Chapitres;
 
 class ChapitresDAO extends DAO
 {

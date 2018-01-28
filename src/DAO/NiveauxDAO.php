@@ -1,8 +1,8 @@
 <?php
 
-namespace ECOLE\DAO;
+namespace Projet_web\DAO;
 
-use ECOLE\Domain\Niveaux;
+use Projet_web\Domain\Niveaux;
 
 class NiveauxDAO extends DAO
 {

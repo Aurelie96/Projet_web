@@ -26,7 +26,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'logout' => true,
             'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
             'users' => $app->share(function () use ($app) {
-                return new ECOLE\DAO\UtilisateursDAO($app['db']);
+                return new Projet_web\DAO\UtilisateursDAO($app['db']);
             }),
         ),
     ),
@@ -45,46 +45,46 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 
 
 $app['dao.annees'] = $app->share(function ($app) {
-    return new ECOLE\DAO\AnneesDAO($app['db']);
+    return new Projet_web\DAO\AnneesDAO($app['db']);
 });
 
 $app['dao.chapitres'] = $app->share(function ($app) {
-    return new ECOLE\DAO\ChapitresDAO($app['db']);
+    return new Projet_web\DAO\ChapitresDAO($app['db']);
 });
 
 $app['dao.classes'] = $app->share(function ($app) {
-    return new ECOLE\DAO\ClassesDAO($app['db']);
+    return new Projet_web\DAO\ClassesDAO($app['db']);
 });
 
 $app['dao.competences'] = $app->share(function ($app) {
-    return new ECOLE\DAO\CompetencesDAO($app['db']);
+    return new Projet_web\DAO\CompetencesDAO($app['db']);
 });
 
 $app['dao.eleves'] = $app->share(function ($app) {
-    return new ECOLE\DAO\ElevesDAO($app['db']);
+    return new Projet_web\DAO\ElevesDAO($app['db']);
 });
 
 $app['dao.niveaux'] = $app->share(function ($app) {
-    return new ECOLE\DAO\NiveauxDAO($app['db']);
+    return new Projet_web\DAO\NiveauxDAO($app['db']);
 });
 
 $app['dao.notation'] = $app->share(function ($app) {
-    return new ECOLE\DAO\NotationDAO($app['db']);
+    return new Projet_web\DAO\NotationDAO($app['db']);
 });
 
 $app['dao.ProfClasse'] = $app->share(function ($app) {
-    return new ECOLE\DAO\ProfClasseDAO($app['db']);
+    return new Projet_web\DAO\ProfClasseDAO($app['db']);
 });
 
 $app['dao.professeurs'] = $app->share(function ($app) {
-    return new ECOLE\DAO\ProfesseursDAO($app['db']);
+    return new Projet_web\DAO\ProfesseursDAO($app['db']);
 });
 
 $app['dao.sexe'] = $app->share(function ($app) {
-    return new ECOLE\DAO\SexeDAO($app['db']);
+    return new Projet_web\DAO\SexeDAO($app['db']);
 });
 
 $app['dao.utilisateurs'] = $app->share(function ($app) {
-    return new ECOLE\DAO\UtilisateursDAO($app['db']);
+    return new Projet_web\DAO\UtilisateursDAO($app['db']);
 });
 
