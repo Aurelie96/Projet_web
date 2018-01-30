@@ -33,7 +33,7 @@ class UtilisateursDAO extends DAO implements UserProviderInterface
      *
      * @param integer $id The user id.
      *
-     * @return \PPE_PHP_GSB\Domain\User|throws an exception if no matching user is found
+     * @return \Projet_web\Domain\Utilisateurs|throws an exception if no matching user is found
      */
     public function find($id) {
         $sql = "select * from utilisateurs where idUtilisateur=?";
@@ -48,25 +48,25 @@ class UtilisateursDAO extends DAO implements UserProviderInterface
     /**
      * Saves a user into the database.
      *
-     * @param \PPE_PHP_GSB\Domain\User $user The user to save
+     * @param \Projet_web\Domain\Utilisateurs $user The user to save
      */
     public function save(User $user) {
         $userData = array(
-            'loginUtilisateur' => $user->getLoginUtilisateur(),
-            'saltUtilisateur' => $user->getSaltUtilisateur(),
-            'mdpUtilisateur' => $user->getMdpUtilisateur(),
-            'roleUtilisateur' => $user->getRoleUtilisateur()
+            'loginUtilisateur' => $user->getUsername(),
+            'saltUtilisateur' => $user->getSalt(),
+            'mdpUtilisateur' => $user->getPassword(),
+            'roleUtilisateur' => $user->getRole()
             );
 
-        if ($user->getIdUtilisateur()) {
+        if ($user->getId()) {
             // The user has already been saved : update it
-            $this->getDb()->update('utilisateurs', $userData, array('idUtilisateur' => $user->getIdUtilisateur()));
+            $this->getDb()->update('utilisateurs', $userData, array('idUtilisateur' => $user->getId()));
         } else {
             // The user has never been saved : insert it
             $this->getDb()->insert('utilisateurs', $userData);
             // Get the id of the newly created user and set it on the entity.
             $id = $this->getDb()->lastInsertId();
-            $user->setIdUtilisateur($id);
+            $user->setId($id);
         }
     }
 
@@ -111,22 +111,22 @@ class UtilisateursDAO extends DAO implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return 'ECOLE\Domain\Utilisateurs' === $class;
+        return 'Projet_web\Domain\Utilisateurs' === $class;
     }
 
     /**
      * Creates a User object based on a DB row.
      *
      * @param array $row The DB row containing User data.
-     * @return \PPE_PHP_GSB\Domain\User
+     * @return \Projet_web\Domain\Utilisateurs
      */
     protected function buildDomainObject($row) {
-        $user = new User();
-        $user->setIdUtilisateur($row['idUtilisateur']);
-        $user->setLoginUtilisateur($row['loginUtilisateur']);
-        $user->setMdpUtilisateur($row['mdpUtilisateur']);
-        $user->setSaltUtilisateur($row['saltUtilisateur']);
-        $user->setRoleUtilisateur($row['roleUtilisateur']);
+        $user = new Utilisateurs();
+        $user->setId($row['idUtilisateur']);
+        $user->setUsername($row['loginUtilisateur']);
+        $user->setPassword($row['mdpUtilisateur']);
+        $user->setSalt($row['saltUtilisateur']);
+        $user->setRole($row['roleUtilisateur']);
         return $user;
     }
 }

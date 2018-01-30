@@ -21,7 +21,7 @@ class ProfesseursDAO extends DAO
             $professeurId = $row['idProfesseur'];
             $professeurs[$professeurId] = $this->buildDomainObject($row);
         }
-        return $professeurs
+        return $professeurs;
     }
 
     /**
@@ -33,10 +33,44 @@ class ProfesseursDAO extends DAO
      */
     public function find($id) {
         $sql = "select * from professeurs where idProfesseur=?";
-        $row = $this->getDb()->fetchAssoc($sql, array)
+        $row = $this->getDb()->fetchAssoc($sql, array($id));
 
         if ($row)   
-            
+            return $this->buildDomainObject($row);
+        else
+            throw new \Exception("Pas de professeurs pour cette reference " . $id);
+    }
 
+    /**
+     *Enregistrer un professeur dans la base de données
+     */
+    public function save(Professeurs $professeur){
+        $professeurData = array(
+            'nomProfesseur'=> $professeur->getNomProfesseur(),
+            'prenomProfesseur' => $professeur->getPrenomProfesseur(),
+            'idSexe' => $professeur->getIdSexe(),
+            'idUtilisateur' => $professeur->getIdUtilisateur()
+        );
+        if ($professeur->getIdProfesseur()){
+            $this->getDb()->update('professeurs', $professeurData, array('idProfesseur' => $professeur->getIdProfesseur()));
+        } else {
+            $this->getDb()->update('professeurs', $professeurData);
+            $idProfesseur = $this->getDb()->lastInsertId();
+            $professeur->setIdProfesseur($idProfesseur);
+        }
+    }
+
+    public function delete($idProfesseur){
+        $this->getDb()->delete('professeurs', array('idProfesseur' => $idProfesseur));
+    }
+
+    protected function buildDomainObject($row){
+        $professeur = new Professeurs();
+        $professeur->setIdProfesseur($row['idProfesseur']);
+        $professeur->setNomProfesseur($row['nomProfesseur']);
+        $professeur->setPrenomProfesseur($row['prenomProfesseur']);
+        $professeur->setIdSexe($row['idSexe']);
+        $professeur->setIdUtilisateur($row['idUtilisateur']);
+        return $professeur;
     }
 }
