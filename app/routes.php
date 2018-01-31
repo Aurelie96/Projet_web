@@ -13,6 +13,7 @@ use Projet_web\Domain\Professeurs;
 use Projet_web\Domain\Sexe;
 use Projet_web\Domain\Utilisateurs;
 use Projet_web\Form\Type\UtilisateursType;
+use Projet_web\Form\Type\ProfesseursType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {
@@ -65,7 +66,7 @@ $app->get('/professeurs', function () use ($app) {
 // Ajouter une nouveau professeur
 $app->match('/admin/professeurs/add', function(Request $request) use ($app) {
     $professeur = new Professeurs();
-    $professeurForm = $app['form.factory']->create(new ProfesseurType(), $professeur);
+    $professeurForm = $app['form.factory']->create(new ProfesseursType(), $professeur);
     $professeurForm->handleRequest($request);
 
     //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page produits
@@ -84,7 +85,7 @@ $app->match('/admin/professeurs/add', function(Request $request) use ($app) {
 // Editer un produit existant
 $app->match('/admin/professeurs/{ref}/edit', function($ref, Request $request) use ($app) {
     $professeur = $app['dao.professeurs']->find($ref);
-    $professeurForm = $app['form.factory']->create(new ProfesseurType(), $professeur);
+    $professeurForm = $app['form.factory']->create(new ProfesseursType(), $professeur);
     $professeurForm->handleRequest($request);
 
     //Si la demande a été soumise on enregistre puis on redirige sur la page produits

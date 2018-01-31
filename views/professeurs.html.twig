@@ -38,14 +38,14 @@
                 </thead>
                 {% for professeur in professeurs %}
                     <tr>
-                        <td><a class="professeurTitre" href="{{   path('professeur', { 'id': professeur.id }) }}">{{ professeur.nom }}</a></td>
+                        <td><a class="professeurTitre" href="{{   path('professeur', { 'ref': professeur.id }) }}">{{ professeur.nom }}</a></td>
                         <td>{{ professeur.prenom | truncate(60) }}</td>
-                        <td>{{ professeur.sexe | truncate(60) }}</td>
-                        <td>{{ professeur.utilisateur | truncate(60) }}</td>
+                        <td>{{ professeur.idSexe | truncate(60) }}</td>
+                        <td>{{ professeur.idUtilisateur | truncate(60) }}</td>
                       
                          {% if app.user and is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('admin_professeurs_edit', { 'code': professeur.id }) }}" class="btn btn-info btn-xs" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{{ path('admin_professeurs_edit', { 'ref': professeur.id }) }}" class="btn btn-info btn-xs" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
 
                                 <button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#professeurDialog{{ professeur.id }}"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
@@ -62,7 +62,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="{{ path('admin_professeurs_delete', { 'code': professeur.id }) }}" class="btn btn-danger">Confirmer</a>
+                                                <a href="{{ path('admin_professeurs_delete', { 'ref': professeur.id }) }}" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
