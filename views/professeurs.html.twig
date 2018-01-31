@@ -1,0 +1,87 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Choix des Professeurs{% endblock %}
+
+{% block content %}
+
+	<div class="well">
+
+			<form class="form-horizontal" action="{{ path('professeurs') }}" methode="post">
+			</form>
+	  
+
+	</div>
+
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">
+        {{ flashMessage }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
+	<div class="tab-content"> 
+    <div class="tab-pane fade in active adminTable" ref="professeurs">
+        {% if professeurs %}
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Sexe</th>
+                        <th>Utilisateur</th>                  
+                        <th></th>  <!-- Actions column -->
+                    </tr>
+                </thead>
+                {% for professeur in professeurs %}
+                    <tr>
+                        <td><a class="professeurTitre" href="{{   path('professeur', { 'id': professeur.id }) }}">{{ professeur.nom }}</a></td>
+                        <td>{{ professeur.prenom | truncate(60) }}</td>
+                        <td>{{ professeur.sexe | truncate(60) }}</td>
+                        <td>{{ professeur.utilisateur | truncate(60) }}</td>
+                      
+                         {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('admin_professeurs_edit', { 'code': professeur.id }) }}" class="btn btn-info btn-xs" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#professeurDialog{{ professeur.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                </button>
+
+                                <div class="modal fade" id="professeurDialog{{ professeur.id }}" ref="professeurDialog{{ professeur.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hrefden="true">&times;</button>
+                                                <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Voulez-vous vraiment supprimer ce professeur ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                                <a href="{{ path('admin_professeurs_delete', { 'code': professeur.id }) }}" class="btn btn-danger">Confirmer</a>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">Pas de professeur trouvés...</div>
+        {% endif %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin_professeurs_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un Praticien</button></a>
+        {% endif %}
+    </div>
+ 
+</div>
+
+
+{% endblock %}
