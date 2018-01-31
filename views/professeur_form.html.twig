@@ -35,24 +35,24 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(professeurForm.sexe, null, { 'label_attr':  {
+        {{ form_label(professeurForm.idSexe, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
-            {{ form_errors(professeurForm.sexe) }}
-            {{ form_widget(professeurForm.sexe, { 'attr':  {
+            {{ form_errors(professeurForm.idSexe) }}
+            {{ form_widget(professeurForm.idSexe, { 'attr':  {
                 'class': 'form-control',
                 'rows': '8'
             }}) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(professeurForm.utilisateur, null, { 'label_attr':  {
+        {{ form_label(professeurForm.idUtilisateur, null, { 'label_attr':  {
             'class': 'col-sm-4 control-label'
         }}) }}
         <div class="col-sm-6">
-            {{ form_errors(professeurForm.utilisateur) }}
-            {{ form_widget(c.utilisateur, { 'attr':  {
+            {{ form_errors(professeurForm.idUtilisateur) }}
+            {{ form_widget(professeurForm.idUtilisateur, { 'attr':  {
                 'class': 'form-control',
                 'rows': '8'
             }}) }}

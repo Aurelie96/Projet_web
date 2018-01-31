@@ -52,7 +52,7 @@ class ProfesseursDAO extends DAO
             'idUtilisateur' => $professeur->getIdUtilisateur()
         );
         if ($professeur->getId()){
-            $this->getDb()->update('professeurs', $professeurData, array('id' => $professeur->getId()));
+            $this->getDb()->update('professeurs', $professeurData, array('idProfesseur' => $professeur->getId()));
         } else {
             $this->getDb()->update('professeurs', $professeurData);
             $idProfesseur = $this->getDb()->lastInsertId();
@@ -61,7 +61,7 @@ class ProfesseursDAO extends DAO
     }
 
     public function delete($idProfesseur){
-        $this->getDb()->delete('professeurs', array('id' => $idProfesseur));
+        $this->getDb()->delete('professeurs', array('idProfesseur' => $idProfesseur));
     }
 
     protected function buildDomainObject($row){

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 30 Janvier 2018 à 13:56
+-- Généré le :  Mer 31 Janvier 2018 à 20:14
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.18
 
@@ -286,6 +286,13 @@ CREATE TABLE `professeurs` (
   `idUtilisateur` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Contenu de la table `professeurs`
+--
+
+INSERT INTO `professeurs` (`idProfesseur`, `nomProfesseur`, `prenomProfesseur`, `idSexe`, `idUtilisateur`) VALUES
+(1, 'Doe', 'John', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -426,6 +433,51 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour les tables exportées
 --
 
+--
+-- AUTO_INCREMENT pour la table `annee`
+--
+ALTER TABLE `annee`
+  MODIFY `idAnnee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `chapitres`
+--
+ALTER TABLE `chapitres`
+  MODIFY `idChapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT pour la table `classes`
+--
+ALTER TABLE `classes`
+  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `competences`
+--
+ALTER TABLE `competences`
+  MODIFY `idCompetence` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+--
+-- AUTO_INCREMENT pour la table `eleves`
+--
+ALTER TABLE `eleves`
+  MODIFY `idEleve` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `niveaux`
+--
+ALTER TABLE `niveaux`
+  MODIFY `idNiveau` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `notation`
+--
+ALTER TABLE `notation`
+  MODIFY `idNotation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `professeurs`
+--
+ALTER TABLE `professeurs`
+  MODIFY `idProfesseur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `sexe`
+--
+ALTER TABLE `sexe`
+  MODIFY `idSexe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
