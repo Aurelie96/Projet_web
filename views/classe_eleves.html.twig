@@ -1,12 +1,31 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Choix des Professeurs{% endblock %}
+{% block title %}Choix des classes{% endblock %}
 
 {% block content %}
 
 	<div class="well">
 
-			<form class="form-horizontal" action="{{ path('professeurs') }}" methode="post">
+			<form class="form-horizontal" action="{{ path('classe_eleves') }}" methode="post">
+				<div class="form-group">
+
+					<label class="col-sm-4" for="classeEle">Trier par Classe d'élèves' :</label>
+
+					<div class="col-sm-6">
+						<select class="form-control" name="classe" ref="classse">
+								
+								<option value="0" >-- Sélectionner une Classe --</option>
+							{% for classe in classes %}
+								<option value="{{ classe.id }}">{{ classe.nom }}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<button type="submit" value="ok" class="btn btn-primary">OK</button>
+
+				</div>
+
+
 			</form>
 	  
 
@@ -17,40 +36,35 @@
     <div class="alert alert-success">
         {{ flashMessage }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hrefden="true">&times;</span>
         </button>
     </div>
     {% endfor %}
 
 	<div class="tab-content"> 
-    <div class="tab-pane fade in active adminTable" ref="professeurs">
-        {% if professeurs %}
+    <div class="tab-pane fade in active adminTable" ref="eleves">
+        {% if eleves %}
         <div class="table-responsive">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Sexe</th>
-                        <th>Utilisateur</th>                  
+                        <th>Nom eleve</th>
+                        <th>Prenom eleve</th>
                         <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
-                {% for professeur in professeurs %}
+                {% for eleve in eleves %}
                     <tr>
-                        <td><a class="professeurTitre" href="{{   path('professeur', { 'ref': professeur.id }) }}">{{ professeur.nom }}</a></td>
-                        <td>{{ professeur.prenom | truncate(60) }}</td>
-                        <td>{{ professeur.idSexe | truncate(60) }}</td>
-                        <td>{{ professeur.idUtilisateur | truncate(60) }}</td>
-                      
+                        <td><a class="eleveTitre" href="{{   path('eleve', { 'id': eleve.id }) }}">{{ eleve.nom }}</a></td>
+                        <td>{{ eleve.prenom | truncate(60) }}</td>
                          {% if app.user and is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('admin_professeurs_edit', { 'ref': professeur.id }) }}" class="btn btn-info btn-xs" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{{ path('admin_eleve_edit', { 'id': eleve.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
 
-                                <button type="button" class="btn btn-danger btn-xs" title="Supprimer" data-toggle="modal" data-target="#professeurDialog{{ professeur.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#eleveDialog{{ eleve.id }}"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
 
-                                <div class="modal fade" id="professeurDialog{{ professeur.id }}" ref="professeurDialog{{ professeur.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                 <div class="modal fade" id="eleveDialog{{ eleve.id }}" ref="eleveDialog{{ eleve.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -58,11 +72,11 @@
                                                 <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
                                             </div>
                                             <div class="modal-body">
-                                                Voulez-vous vraiment supprimer ce professeur ?
+                                                Voulez-vous vraiment supprimer cette eleve ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="{{ path('admin_professeurs_delete', { 'ref': professeur.id }) }}" class="btn btn-danger">Confirmer</a>
+                                                <a href="{{ path('admin_eleve_delete', { 'id': eleve.id }) }}" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -74,10 +88,10 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas de professeur trouvés...</div>
+        <div class="alert alert-warning">Pas d'eleve trouvés...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_professeurs_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un Professeur</button></a>
+            <a href="{{ path('admin_eleve_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>
         {% endif %}
     </div>
  

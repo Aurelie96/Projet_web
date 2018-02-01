@@ -14,6 +14,7 @@ use Projet_web\Domain\Sexe;
 use Projet_web\Domain\Utilisateurs;
 use Projet_web\Form\Type\UtilisateursType;
 use Projet_web\Form\Type\ProfesseursType;
+use Projet_web\Form\Type\ElevesType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {
@@ -42,6 +43,81 @@ $app->get('/login', function(Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Eleves----------------------------------------------
+//Renvoie la page des eleves
+$app->get('/classe_eleves', function () use ($app) {
+   
+    $eleves = $app['dao.eleves']->findAll();
+    $classes = $app['dao.classes']->findAll();
+
+    //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les eleves du classe en question
+    if(isset($_GET['classe']) && $_GET['classe'] != 0){   
+        $classe = $_GET['classes'];
+        $eleves = $app['dao.eleves']->findElevesByClasse($classe);
+        
+    }
+    //on affiche la page avec un tableau de eleve triables par classe
+    return $app['twig']->render('classe_eleves.html.twig', array(
+        'eleves' => $eleves,
+        'classes' => $classes ));
+})->bind('classe_eleves');
+
+
+// Ajouter une nouveau eleve
+$app->match('/admin/eleves/add', function(Request $request) use ($app) {
+    $classes = $app['dao.classes']->findAll();
+    $eleve = new Eleves();
+    $eleveForm = $app['form.factory']->create(new ElevesType(), $eleve);
+    $eleveForm->handleRequest($request);
+
+    //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page eleve
+    if ($eleveForm->isSubmitted() && $eleveForm->isValid()) {
+        $app['dao.eleves']->save($eleve);
+        $app['session']->getFlashBag()->add('success', 'L eleve a été créé avec succès.');
+        return $app->redirect($app['url_generator']->generate('classe_eleves'));
+    }
+    //On affiche le formulaire de eleve 
+    return $app['twig']->render('eleve_form.html.twig', array(
+        'classes' => $classes,
+        'title' => 'Nouveau élève',
+        'eleveForm' => $eleveForm->createView()));
+})->bind('admin_eleves_add');
+
+// Editer un eleve existant
+$app->match('/admin/eleves/{id}/edit', function($id, Request $request) use ($app) {
+    $eleve = $app['dao.eleves']->find($id);
+    $eleveForm = $app['form.factory']->create(new ElevesType(), $eleve);
+    $eleveForm->handleRequest($request);
+    
+    //Si la demande a été soumise on enregistre puis on redirige sur la page eleve
+    if ($eleveForm->isSubmitted() && $eleveForm->isValid()) {
+        $app['dao.eleves']->save($eleve);
+        $app['classes']->getFlashBag()->add('success', 'L eleve a été modifié avec succès.');
+        return $app->redirect($app['url_generator']->generate('classe_eleves'));
+    }
+
+    //On affiche par defaut le formulaire de visiteur rempli avec les données du visiteur
+    return $app['twig']->render('eleve_form.html.twig', array(
+        'title' => 'Editer un eleve',
+        'eleveForm' => $eleveForm->createView()));
+})->bind('admin_eleves_edit');
+
+
+// Supprimer un visiteur
+$app->get('/admin/eleves/{id}/delete', function($id, Request $request) use ($app) {
+    // Supprimer le visiteur
+    $app['dao.eleves']->delete($id);
+    $app['classes']->getFlashBag()->add('success', 'L eleve a été supprimé avec succès.');
+    // Redirection sur la page des eleves
+    return $app->redirect($app['url_generator']->generate('classe_eleves'));
+})->bind('admin_eleves_delete');
+
+
+// Afficher le détail d'un eleve 
+$app->get('/eleves/{id}', function ($id, Request $request) use ($app) {
+    $eleves = $app['dao.eleves']->find($id);
+    return $app['twig']->render('eleve.html.twig', array(
+        'eleves' => $eleves));
+})->bind('eleve');
 
 
 // -------------------------------------------------- Section Niveaux----------------------------------------------
