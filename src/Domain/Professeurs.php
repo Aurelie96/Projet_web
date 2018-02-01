@@ -2,65 +2,65 @@
 
 namespace Projet_web\Domain;
 
-class Professeurs 
+class Professeurs
 {
     /**
-     * Professeurs idProfesseur.
+     *  id
      *
      * @var integer
      */
-    private $idProfesseur;
+    private $id;
 
     /**
-     * Professeurs nomProfesseur.
+     *  nom
      *
      * @var string
      */
-    private $nomProfesseur;
+    private $nom;
 
     /**
-     * Professeurs prenomProfesseur.
+     *  prenom
      *
      * @var string
      */
-    private $prenomProfesseur;
+    private $prenom;
 
     /**
-     * Professeurs idSexe.
+     *  idSexe
      *
      * @var integer
      */
     private $idSexe;
 
     /**
-     * Professeurs idUtilisateur.
+     *  idUtilisateur
      *
      * @var integer
      */
     private $idUtilisateur;
 
-    public function getIdProfesseur() {
-        return $this->idProfesseur;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdProfesseur($idProfesseur) {
-        $this->idProfesseur = $idProfesseur;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getNomProfesseur() {
-        return $this->nomProfesseur;
+    public function getNom() {
+        return $this->nom;
     }
 
-    public function setNomProfesseur($nomProfesseur) {
-        $this->nomProfesseur = $nomProfesseur;
+    public function setNom($nom) {
+        $this->nom = $nom;
     }
 
-    public function getPrenomProfesseur() {
-        return $this->prenomProfesseur;
+    public function getPrenom() {
+        return $this->prenom;
     }
 
-    public function setPrenomProfesseur($prenomProfesseur) {
-        $this->prenomProfesseur = $prenomProfesseur;
+    public function setPrenom($prenom) {
+        $this->prenom = $prenom;
     }
 
     public function getIdSexe() {

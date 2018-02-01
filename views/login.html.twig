@@ -10,7 +10,7 @@
 
 {% block content %}
 {% if app.user %}
-<h2 class="text-center"><b>Bienvenue dans l'application GALAXY SWISS BOURDIN</b> <br><br>
+<h2 class="text-center"><b>Bienvenue dans l'application de suivie de compétence</b> <br><br>
     Cliquez sur une Section pour y accéder</h2>
 {% elseif error %}
 <div class="alert alert-danger">
@@ -20,23 +20,8 @@
  <h2 class="text-center"><b>Bonjour <br><br> Veuillez vous identifier</h2>
 {% endif %}
 
-
 {% if app.user %}
 <div class="well">
-    <div class="btn-group" style="width: 30%; margin:1%;" >  
-      <a class="btn btn-default btn-lg" href="{{ path('specialite_praticiens') }}" role="button" style="width: 100%;"> 
-    <span class="glyphicon glyphicon-plus"></span> </br> Praticiens</a>
-    </div> 
-    <div class="btn-group"  role="group" style="width: 30%; margin:1%;">
-        <a class="btn btn-default btn-lg" href="{{ path('secteur_visiteurs') }}" role="button" style="width: 100%;"> 
-    <span class="glyphicon glyphicon-heart-empty"></span> </br> Visiteurs</a>
-    </div>
-    <div class="btn-group"  role="group" style="width: 30%; margin:1%;" >
-        <a class="btn btn-default btn-lg" href="{{ path('famille_produits') }}" role="button" style="width: 100%;"> 
-    <span class="glyphicon glyphicon-barcode"></span> </br> Produits</a> 
-    </div> 
-    
-   
 </div>
 {% else %}
 <div class="well">
@@ -59,4 +44,5 @@
     </form>
 </div>
 {% endif %}
+
 {% endblock %}

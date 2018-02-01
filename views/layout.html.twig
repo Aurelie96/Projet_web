@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ app.request.basepath }}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ app.request.basepath }}/css/ecole.css" rel="stylesheet">
-    <title>{% block title %}{% endblock %}</title>
+    <title>GSB - {% block title %}{% endblock %}</title>
 </head>
 <body>
     <div class="container">
@@ -55,10 +55,7 @@
                     <ul class="nav nav-pills nav-stacked">
            
                         <li role="presentation" class="active"><a href="{{ path('login') }}">Accueil</a></li>
-                        <li role="presentation"><a href="{{ path('specialite_praticiens') }}">Praticiens</a></li>
-                        <li role="presentation"><a href="{{ path('secteur_visiteurs') }}">Visiteurs</a></li>
-                        <li role="presentation"><a href="{{ path('famille_produits') }} ">Produits</a></li>
-                        
+                        <li role="presentation"><a href="{{ path('professeurs') }}">Professeurs</a></li>
                     </ul>
                 </div>
             <div class="col-md-9">   
@@ -66,17 +63,14 @@
             <div class="col-md-12">
             {% endif %}
             {% block content %}{% endblock %}</div>
-        </div>
-
-
-       
+            </div>       
     </div>
     
    
 </body>
 
- <footer class="footer">Editeur de compétences<br><br>
- <h6>Aurélie CHASSAGNE - Célian PICOT - Khévin VERGER - Catherine JOLY - CESI 2018</h6>
+ <footer class="footer">
+ <center>Catherine JOLY - Célian PICOT - Khevin VERGER - Aurélie CHASSAGNE - Session Octobre 2017</center>
 </footer>
 
 
