@@ -54,7 +54,7 @@ class ProfesseursDAO extends DAO
         if ($professeur->getId()){
             $this->getDb()->update('professeurs', $professeurData, array('idProfesseur' => $professeur->getId()));
         } else {
-            $this->getDb()->update('professeurs', $professeurData);
+            $this->getDb()->insert('professeurs', $professeurData);
             $idProfesseur = $this->getDb()->lastInsertId();
             $professeur->setId($idProfesseur);
         }
