@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Détail professeur{% endblock %}
+
+{% block content %}
+
+<div class="well">
+    <article>
+        <h2><a class="professeurTitle" href="">{{ professeurs.nom }}</a></h2>
+        <p>prenom : {{ professeurs.prenom }}</p>
+        <p>sexe : {{ professeurs.idSexe }}</p>
+        <p>utilisateur : {{ professeurs.idUtilisateur }}</p>
+    </article>
+</div>
+
+
+<a style="float: right; margin : 1%; " class="btn btn-default" href="{{   path('professeurs') }}"><span class="glyphicon glyphicon-menu-left"></span> Retour</a>
+{% endblock %}

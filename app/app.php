@@ -1,5 +1,5 @@
 <?php
-/*
+
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\ExceptionHandler;
 
@@ -26,7 +26,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'logout' => true,
             'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
             'users' => $app->share(function () use ($app) {
-                return new Projet_web\DAO\UserDAO($app['db']);
+                return new Projet_web\DAO\UtilisateursDAO($app['db']);
             }),
         ),
     ),
@@ -44,32 +44,47 @@ $app->register(new Silex\Provider\ValidatorServiceProvider());
 // Register services
 
 
-$app['dao.produit'] = $app->share(function ($app) {
-    return new Projet_web\DAO\ProduitDAO($app['db']);
+$app['dao.annees'] = $app->share(function ($app) {
+    return new Projet_web\DAO\AnneesDAO($app['db']);
 });
 
-$app['dao.famille'] = $app->share(function ($app) {
-    return new Projet_web\DAO\FamilleDAO($app['db']);
+$app['dao.chapitres'] = $app->share(function ($app) {
+    return new Projet_web\DAO\ChapitresDAO($app['db']);
 });
 
-$app['dao.visiteur'] = $app->share(function ($app) {
-    return new Projet_web\DAO\VisiteurDAO($app['db']);
+$app['dao.classes'] = $app->share(function ($app) {
+    return new Projet_web\DAO\ClassesDAO($app['db']);
 });
 
-$app['dao.secteur'] = $app->share(function ($app) {
-    return new Projet_web\DAO\SecteurDAO($app['db']);
+$app['dao.competences'] = $app->share(function ($app) {
+    return new Projet_web\DAO\CompetencesDAO($app['db']);
 });
 
-$app['dao.praticien'] = $app->share(function ($app) {
-    return new Projet_web\DAO\PraticienDAO($app['db']);
+$app['dao.eleves'] = $app->share(function ($app) {
+    return new Projet_web\DAO\ElevesDAO($app['db']);
 });
 
-$app['dao.specialite'] = $app->share(function ($app) {
-    return new Projet_web\DAO\SpecialiteDAO($app['db']);
+$app['dao.niveaux'] = $app->share(function ($app) {
+    return new Projet_web\DAO\NiveauxDAO($app['db']);
 });
 
-$app['dao.user'] = $app->share(function ($app) {
-    return new Projet_web\DAO\UserDAO($app['db']);
+$app['dao.notation'] = $app->share(function ($app) {
+    return new Projet_web\DAO\NotationDAO($app['db']);
 });
 
-*/
+$app['dao.ProfClasse'] = $app->share(function ($app) {
+    return new Projet_web\DAO\ProfClasseDAO($app['db']);
+});
+
+$app['dao.professeurs'] = $app->share(function ($app) {
+    return new Projet_web\DAO\ProfesseursDAO($app['db']);
+});
+
+$app['dao.sexe'] = $app->share(function ($app) {
+    return new Projet_web\DAO\SexeDAO($app['db']);
+});
+
+$app['dao.utilisateurs'] = $app->share(function ($app) {
+    return new Projet_web\DAO\UtilisateursDAO($app['db']);
+});
+

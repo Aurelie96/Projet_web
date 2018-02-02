@@ -1,15 +1,9 @@
 Pour installer Silex pour Framework PHP
 
-tï¿½lï¿½charger Composer-Setup.exe sur https://getcomposer.org/download/
+télécharger Composer-Setup.exe sur https://getcomposer.org/download/
 
-lors de l'installation, quand ils vous demande de choisir un fichier aller : \UwAmp\UwAmp\bin\php\php-7.0.3\php.exe
+lors de l'installation, quand ils vous demande de choisir un fichier aller : \UwAmp\UwAmp\bin\php\php-7.0.3
 
-Aprï¿½s ouvrez une commande et faire composer install
+Après ouvrez une commande et faire composer install
 
 Si vous modifier le composer.json il faut faire composer update
-
-// tuto de premiÃ¨re utilisation :
-https://openclassrooms.com/courses/premiers-pas-avec-le-framework-php-silex
-
-// tuto d'utilisation approfondie :
-https://openclassrooms.com/courses/evoluez-vers-une-architecture-php-professionnelle/iteration-3-integration-du-framework-php-silex

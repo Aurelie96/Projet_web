@@ -1,5 +1,4 @@
 # Redirect incoming URLs to index.php
-
 <IfModule mod_rewrite.c>
     Options -MultiViews
 

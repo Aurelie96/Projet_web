@@ -1,0 +1,71 @@
+{% extends 'layout.html.twig' %}
+{% set adminMenu = true %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{# Commentaires : formulaire de création ou de modification des professeurs  #}
+
+{% block content %}
+<h2 class="text-center">{{ block('title') }}</h2>
+
+
+<div class="well">
+{{ form_start(professeurForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(professeurForm.nom, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(professeurForm.nom) }}
+            {{ form_widget(professeurForm.nom, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(professeurForm.prenom, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(professeurForm.prenom) }}
+            {{ form_widget(professeurForm.prenom, { 'attr':  {
+                'class': 'form-control',
+                'rows': '8'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(professeurForm.idSexe, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(professeurForm.idSexe) }}
+            {{ form_widget(professeurForm.idSexe, { 'attr':  {
+                'class': 'form-control',
+                'rows': '8'
+            }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(professeurForm.idUtilisateur, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(professeurForm.idUtilisateur) }}
+            {{ form_widget(professeurForm.idUtilisateur, { 'attr':  {
+                'class': 'form-control',
+                'rows': '8'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <div class="col-sm-offset-4 col-sm-6">
+         <a  class="btn btn-default" href="{{   path('professeurs') }}">Annuler</a>
+         <input type="submit" class="btn btn-primary" value="Enregistrer" />
+        </div>
+    </div>
+{{ form_end(professeurForm) }}
+</div>
+{% endblock %}
