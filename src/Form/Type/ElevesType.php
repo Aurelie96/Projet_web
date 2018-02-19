@@ -34,7 +34,7 @@ class ElevesType extends AbstractType
             ))
             ->add('idUtilisateur', 'choice', array(
                 'choices' => array(
-                    1 => 'Role ADMIN')
+                    2 => 'Role UTILISATEUR')
             ))
             ;
     }

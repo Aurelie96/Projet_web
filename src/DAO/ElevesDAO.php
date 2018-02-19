@@ -30,10 +30,10 @@ class ElevesDAO extends DAO
     }
     
     public function find($id) {
-        $sql = "select * eleves where idEleve=?";
+        $sql = "select * from eleves where idEleve=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
 
-        if ($row)
+        if ($row)   
             return $this->buildDomainObject($row);
         else
             throw new \Exception("Pas d'élève pour cette reference " . $id);
