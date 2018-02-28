@@ -9,9 +9,9 @@
 			<form class="form-horizontal" action="{{ path('chapitre_competences') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-sm-4" for="chapitreCom">Trier par Chapitre' :</label>
+					<label class="col-xs-12 col-sm-4" for="chapitreCom">Trier par Chapitre :</label>
 
-					<div class="col-sm-6">
+					<div class="col-xs-12 col-sm-6">
 						<select class="form-control" name="chapitre" ref="classse">
 								
 								<option value="0" >-- Sélectionner un chapitre --</option>
@@ -21,7 +21,7 @@
 						</select>
 					</div>
 
-					<button type="submit" value="ok" class="btn btn-primary">OK</button>
+					<button type="submit" value="ok" class="largeurMiniBtn col-xs-12 col-sm-2 btn btn-primary">OK</button>
 
 				</div>
 
@@ -45,7 +45,7 @@
     <div class="tab-pane fade in active adminTable" ref="competences">
         {% if competences %}
         <div class="table-responsive">
-            <table class="table table-hover table-condensed">
+            <table id="tableChapitre" class="table table-hover table-condensed">
                 <thead>
                     <tr>
                         <th>Titre compétence</th>
@@ -54,7 +54,10 @@
                 </thead>
                 {% for competence in competences %}
                     <tr>
-                        <td><a class="competenceTitre" href="{{   path('competence', { 'id': competence.id }) }}">{{ competence.titre }}</a></td>
+                        <td>
+                            <a class="competenceTitre" href="{{   path('competence', { 'id': competence.id }) }}">{{ competence.titre }}</a>
+                        </td>
+
                          {% if app.user and is_granted('ROLE_ADMIN') %}
                             <td>
                                 <a href="{{ path('admin_competences_edit', { 'id': competence.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
