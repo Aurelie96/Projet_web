@@ -6,80 +6,92 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class Utilisateurs implements UserInterface
 {
-
     /**
-     * Utilisateurs idUtilisateur.
+     * User id.
      *
      * @var integer
      */
-    private $idUtilisateur;
+    private $id;
 
     /**
-     * Utilisateurs loginUtilisateur.
+     * User name.
      *
      * @var string
      */
-    private $loginUtilisateur;
+    private $username;
 
     /**
-     * Utilisateurs mdpUtilisateur.
+     * User password.
      *
      * @var string
      */
-    private $mdpUtilisateur;
+    private $password;
 
-     /**
-     * Utilisateurs saltUtilisateur.
+    /**
+     * Salt that was originally used to encode the password.
      *
      * @var string
      */
-    private $saltUtilisateur;
+    private $salt;
 
-     /**
-     * Utilisateurs roleUtilisateur.
+    /**
+     * Role.
+     * Values : ROLE_USER or ROLE_ADMIN.
      *
      * @var string
      */
-    private $roleUtilisateur;
+    private $role;
 
-    public function getIdUtilisateur() {
-        return $this->idUtilisateur;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdUtilisateur($idUtilisateur) {
-        $this->idUtilisateur = $idUtilisateur;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getLoginUtilisateur() {
-        return $this->loginUtilisateur;
+    /**
+     * @inheritDoc
+     */
+    public function getUsername() {
+        return $this->username;
     }
 
-    public function setLoginUtilisateur($loginUtilisateur) {
-        $this->loginUtilisateur = $loginUtilisateur;
+    public function setUsername($username) {
+        $this->username = $username;
     }
 
-    public function getMdpUtilisateur() {
-        return $this->mdpUtilisateur;
+    /**
+     * @inheritDoc
+     */
+    public function getPassword() {
+        return $this->password;
     }
 
-    public function setMdpUtilisateur($mdpUtilisateur) {
-        $this->mdpUtilisateur = $mdpUtilisateur;
+    public function setPassword($password) {
+        $this->password = $password;
     }
 
-    public function getSaltUtilisateur() {
-        return $this->saltUtilisateur;
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
-    public function setSaltUtilisateur($saltUtilisateur) {
-        $this->saltUtilisateur = $saltUtilisateur;
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 
-    public function getRoleUtilisateur() {
-        return $this->roleUtilisateur;
+    public function getRole()
+    {
+        return $this->role;
     }
 
-    public function setRoleUtilisateur($roleUtilisateur) {
-        $this->roleUtilisateur = $roleUtilisateur;
+    public function setRole($role) {
+        $this->role = $role;
     }
 
     /**

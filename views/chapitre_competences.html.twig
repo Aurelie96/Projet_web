@@ -1,0 +1,99 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Choix des compétences{% endblock %}
+
+{% block content %}
+
+	<div class="well">
+
+			<form class="form-horizontal" action="{{ path('chapitre_competences') }}" methode="post">
+				<div class="form-group">
+
+					<label class="col-sm-4" for="chapitreCom">Trier par Chapitre' :</label>
+
+					<div class="col-sm-6">
+						<select class="form-control" name="chapitre" ref="classse">
+								
+								<option value="0" >-- Sélectionner un chapitre --</option>
+							{% for chapitre in chapitres %}
+								<option value="{{ chapitre.id }}">{{ chapitre.titre }}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<button type="submit" value="ok" class="btn btn-primary">OK</button>
+
+				</div>
+
+
+			</form>
+	  
+
+	</div>
+
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">
+        {{ flashMessage }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hrefden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
+	<div class="tab-content"> 
+    <div class="tab-pane fade in active adminTable" ref="competences">
+        {% if competences %}
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Titre compétence</th>
+                        <th></th>  <!-- Actions column -->
+                    </tr>
+                </thead>
+                {% for competence in competences %}
+                    <tr>
+                        <td><a class="competenceTitre" href="{{   path('competence', { 'id': competence.id }) }}">{{ competence.titre }}</a></td>
+                         {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('admin_competences_edit', { 'id': competence.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#competenceDialog{{ competence.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                </button>
+
+                                 <div class="modal fade" id="competenceDialog{{ competence.id }}" ref="competenceDialog{{ competence.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hrefden="true">&times;</button>
+                                                <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Voulez-vous vraiment supprimer cette competence ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                                <a href="{{ path('admin_competences_delete', { 'id': competence.id }) }}" class="btn btn-danger">Confirmer</a>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">Pas d'competence trouvés...</div>
+        {% endif %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>
+        {% endif %}
+    </div>
+ 
+</div>
+
+
+{% endblock %}

@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `annee`
 --
-IF EXISTS DROP AND
+
 CREATE TABLE `annee` (
   `idAnnee` int(11) NOT NULL,
   `libelleAnne` int(11) DEFAULT NULL

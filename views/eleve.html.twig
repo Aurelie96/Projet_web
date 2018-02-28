@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Détail élève{% endblock %}
+
+{% block content %}
+
+<div class="well">
+    <article>
+        <h2><a class="visiteurTitle" href="">{{ eleves.nom }}</a></h2>
+        <p>prenom : {{ eleves.prenom }}</p>
+        <p>classe : {{ eleves.idClasse }}</p>
+        <p>sexe : {{ eleves.idSexe }}</p>
+        <p>utilisateur : {{ eleves.idUtilisateur }}</p>
+    </article>
+</div>
+
+
+<a style="float: right; margin : 1%; " class="btn btn-default" href="{{   path('classe_eleves') }}"><span class="glyphicon glyphicon-menu-left"></span> Retour</a>
+{% endblock %}

@@ -9,21 +9,21 @@ class Eleves
      *
      * @var integer
      */
-    private $idEleve;
+    private $id;
 
     /**
      * Eleves nomEleve.
      *
      * @var string
      */
-    private $nomEleve;
+    private $nom;
 
     /**
      * Eleves prenomEleve.
      *
      * @var string
      */
-    private $prenomEleve;
+    private $prenom;
 
     /**
      * Eleves idClasse.
@@ -46,28 +46,28 @@ class Eleves
      */
     private $idUtilisateur;
 
-    public function getIdEleve() {
-        return $this->idEleve;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdEleve($idEleve) {
-        $this->idEleve = $idEleve;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getNomEleve() {
-        return $this->nomEleve;
+    public function getNom() {
+        return $this->nom;
     }
 
-    public function setNomEleve($nomEleve) {
-        $this->nomEleve = $nomEleve;
+    public function setNom($nom) {
+        $this->nom = $nom;
     }
 
-    public function getPrenomEleve() {
-        return $this->prenomEleve;
+    public function getPrenom() {
+        return $this->prenom;
     }
 
-    public function setPrenomEleve($prenomEleve) {
-        $this->prenomEleve = $prenomEleve;
+    public function setPrenom($prenom) {
+        $this->prenom = $prenom;
     }
 
     public function getIdClasse() {
