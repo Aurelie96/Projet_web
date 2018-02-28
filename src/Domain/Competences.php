@@ -9,14 +9,14 @@ class Competences
      *
      * @var integer
      */
-    private $idCompetence;
+    private $id;
 
     /**
      * Competences titreCompetence.
      *
      * @var string
      */
-    private $titreCompetence;
+    private $titre;
 
     /**
      * Competences idChapitre.
@@ -25,20 +25,20 @@ class Competences
      */
     private $idChapitre;
 
-    public function getIdCompetence() {
-        return $this->idCompetence;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdCompetence($idCompetence) {
-        $this->idCompetence = $idCompetence;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getTitreCompetence() {
-        return $this->titreCompetence;
+    public function getTitre() {
+        return $this->titre;
     }
 
-    public function setTitreCompetence($titreCompetence) {
-        $this->titreCompetence = $titreCompetence;
+    public function setTitre($titre) {
+        $this->titre = $titre;
     }
 
     public function getIdChapitre() {

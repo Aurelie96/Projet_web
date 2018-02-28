@@ -15,6 +15,8 @@ use Projet_web\Domain\Utilisateurs;
 use Projet_web\Form\Type\UtilisateursType;
 use Projet_web\Form\Type\ProfesseursType;
 use Projet_web\Form\Type\ElevesType;
+use Projet_web\Form\Type\ChapitresType;
+use Projet_web\Form\Type\CompetenceType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {
@@ -40,7 +42,81 @@ $app->get('/login', function(Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Competences----------------------------------------------
+//Renvoie la page des competences
+$app->get('/chapitre_competences', function () use ($app) {
+   
+    $competences = $app['dao.competences']->findAll();
+    $chapitres = $app['dao.chapitres']->findAll();
 
+    //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les competences du chapitre en question
+    if(isset($_GET['chapitres']) && $_GET['chapitres'] != 0){   
+        $chapitre = $_GET['chapitres'];
+        $competences = $app['dao.competences']->findCompetencesByChapitre($chapitre);
+        
+    }
+    //on affiche la page avec un tableau de competence triables par chapitre
+    return $app['twig']->render('chapitre_competences.html.twig', array(
+        'competences' => $competences,
+        'chapitres' => $chapitres ));
+})->bind('chapitre_competences');
+
+
+// Ajouter une nouveau competence
+$app->match('/admin/competences/add', function(Request $request) use ($app) {
+    $chapitres = $app['dao.chapitres']->findAll();
+    $competence = new Competences();
+    $competenceForm = $app['form.factory']->create(new CompetenceType(), $competence);
+    $competenceForm->handleRequest($request);
+
+    //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page competence
+    if ($competenceForm->isSubmitted() && $competenceForm->isValid()) {
+        $app['dao.competences']->save($competence);
+        $app['session']->getFlashBag()->add('success', 'Elève créé avec succès.');
+        return $app->redirect($app['url_generator']->generate('chapitre_competences'));
+    }
+    //On affiche le formulaire de competence 
+    return $app['twig']->render('competence_form.html.twig', array(
+        'chapitres' => $chapitres,
+        'title' => 'Nouveau élève',
+        'competenceForm' => $competenceForm->createView()));
+})->bind('admin_competences_add');
+
+// Editer un competence existant
+$app->match('/admin/competences/{id}/edit', function($id, Request $request) use ($app) {
+    $competence = $app['dao.competences']->find($id);
+    $competenceForm = $app['form.factory']->create(new CompetenceType(), $competence);
+    $competenceForm->handleRequest($request);
+    
+    //Si la demande a été soumise on enregistre puis on redirige sur la page competence
+    if ($competenceForm->isSubmitted() && $competenceForm->isValid()) {
+        $app['dao.competences']->save($competence);
+        $app['session']->getFlashBag()->add('success', 'Elève modifié avec succès.');
+        return $app->redirect($app['url_generator']->generate('chapitre_competences'));
+    }
+
+    //On affiche par defaut le formulaire de visiteur rempli avec les données du visiteur
+    return $app['twig']->render('competence_form.html.twig', array(
+        'title' => 'Editer un competence',
+        'competenceForm' => $competenceForm->createView()));
+})->bind('admin_competences_edit');
+
+
+// Supprimer un visiteur
+$app->get('/admin/competences/{id}/delete', function($id, Request $request) use ($app) {
+    // Supprimer le visiteur
+    $app['dao.competences']->delete($id);
+    $app['session']->getFlashBag()->add('success', 'Elève supprimé avec succès.');
+    // Redirection sur la page des competences
+    return $app->redirect($app['url_generator']->generate('chapitre_competences'));
+})->bind('admin_competences_delete');
+
+
+// Afficher le détail d'un competence 
+$app->get('/competences/{id}', function ($id, Request $request) use ($app) {
+    $competences = $app['dao.competences']->find($id);
+    return $app['twig']->render('competence.html.twig', array(
+        'competences' => $competences));
+})->bind('competence');
 
 // -------------------------------------------------- Section Eleves----------------------------------------------
 //Renvoie la page des eleves
@@ -50,7 +126,7 @@ $app->get('/classe_eleves', function () use ($app) {
     $classes = $app['dao.classes']->findAll();
 
     //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les eleves du classe en question
-    if(isset($_GET['classe']) && $_GET['classe'] != 0){   
+    if(isset($_GET['classes']) && $_GET['classes'] != 0){   
         $classe = $_GET['classes'];
         $eleves = $app['dao.eleves']->findElevesByClasse($classe);
         
@@ -72,7 +148,7 @@ $app->match('/admin/eleves/add', function(Request $request) use ($app) {
     //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page eleve
     if ($eleveForm->isSubmitted() && $eleveForm->isValid()) {
         $app['dao.eleves']->save($eleve);
-        $app['session']->getFlashBag()->add('success', 'L eleve a été créé avec succès.');
+        $app['session']->getFlashBag()->add('success', 'Elève créé avec succès.');
         return $app->redirect($app['url_generator']->generate('classe_eleves'));
     }
     //On affiche le formulaire de eleve 
@@ -91,7 +167,7 @@ $app->match('/admin/eleves/{id}/edit', function($id, Request $request) use ($app
     //Si la demande a été soumise on enregistre puis on redirige sur la page eleve
     if ($eleveForm->isSubmitted() && $eleveForm->isValid()) {
         $app['dao.eleves']->save($eleve);
-        $app['classes']->getFlashBag()->add('success', 'L eleve a été modifié avec succès.');
+        $app['session']->getFlashBag()->add('success', 'Elève modifié avec succès.');
         return $app->redirect($app['url_generator']->generate('classe_eleves'));
     }
 
@@ -106,7 +182,7 @@ $app->match('/admin/eleves/{id}/edit', function($id, Request $request) use ($app
 $app->get('/admin/eleves/{id}/delete', function($id, Request $request) use ($app) {
     // Supprimer le visiteur
     $app['dao.eleves']->delete($id);
-    $app['classes']->getFlashBag()->add('success', 'L eleve a été supprimé avec succès.');
+    $app['session']->getFlashBag()->add('success', 'Elève supprimé avec succès.');
     // Redirection sur la page des eleves
     return $app->redirect($app['url_generator']->generate('classe_eleves'));
 })->bind('admin_eleves_delete');
