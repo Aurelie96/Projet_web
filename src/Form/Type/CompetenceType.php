@@ -15,7 +15,7 @@ class CompetenceType extends AbstractType
                 ->add('titre', 'text')
                 ->add('idChapitre', 'choice', array(
                     'choices' => array(
-                        null => '-- Sélectionner un Chapitre --',
+                        null => '-- Sélectionner un chapitre --',
                         47 => 'Cours sur les volumes et les pavés droits',
                         46 => 'Cours sur les symétries axiales',
                         45 => 'Cours sur l aire et le périmètre',

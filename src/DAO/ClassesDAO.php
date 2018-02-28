@@ -26,7 +26,7 @@ class ClassesDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de classe pour cette reference " . $id);
+            throw new \Exception("Pas de classe pour cette référence " . $id);
     }
 
     public function save(Classes $classe) {

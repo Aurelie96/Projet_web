@@ -11,7 +11,9 @@
 {% block content %}
 {% if app.user %}
 <h2 class="text-center"><b>Bienvenue dans l'application de suivie de compétence</b> <br><br>
-    Cliquez sur une Section pour y accéder</h2>
+{#
+    Cliquez sur une section pour y accéder</h2>
+#}
 {% elseif error %}
 <div class="alert alert-danger">
     <strong>Connexion échouée</strong> {{ error }}

@@ -15,7 +15,7 @@ class ElevesType extends AbstractType
             ->add('prenom', 'text')
             ->add('idClasse', 'choice', array(
                 'choices' => array(
-                    null => '-- Sélectionner une Classe --',
+                    null => '-- Sélectionner une classe --',
                     1 => '6ième A',
                     2 => '6ième B',
                     3 => '5ième A',
@@ -27,14 +27,15 @@ class ElevesType extends AbstractType
             ))
             ->add('idSexe', 'choice', array(
                 'choices' => array(
-                    null => '-- Sélectionner un Sexe --',
+                    null => '-- Sélectionner --',
                     1 => 'Garçon',
-                    2 => 'Fille',
-                    3 => 'Transexuel')
+                    2 => 'Fille'
+                   /* , 3 => 'Transexuel'*/
+                )
             ))
             ->add('idUtilisateur', 'choice', array(
                 'choices' => array(
-                    2 => 'Role UTILISATEUR')
+                    2 => 'UTILISATEUR')
             ))
             ;
     }

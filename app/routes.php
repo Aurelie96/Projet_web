@@ -71,13 +71,13 @@ $app->match('/admin/competences/add', function(Request $request) use ($app) {
     //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page competence
     if ($competenceForm->isSubmitted() && $competenceForm->isValid()) {
         $app['dao.competences']->save($competence);
-        $app['session']->getFlashBag()->add('success', 'Elève créé avec succès.');
+        $app['session']->getFlashBag()->add('success', 'Créé avec succès.');
         return $app->redirect($app['url_generator']->generate('chapitre_competences'));
     }
     //On affiche le formulaire de competence 
     return $app['twig']->render('competence_form.html.twig', array(
         'chapitres' => $chapitres,
-        'title' => 'Nouveau élève',
+        'title' => 'Nouvelle compétence',
         'competenceForm' => $competenceForm->createView()));
 })->bind('admin_competences_add');
 
@@ -90,7 +90,7 @@ $app->match('/admin/competences/{id}/edit', function($id, Request $request) use 
     //Si la demande a été soumise on enregistre puis on redirige sur la page competence
     if ($competenceForm->isSubmitted() && $competenceForm->isValid()) {
         $app['dao.competences']->save($competence);
-        $app['session']->getFlashBag()->add('success', 'Elève modifié avec succès.');
+        $app['session']->getFlashBag()->add('success', 'Modifié avec succès.');
         return $app->redirect($app['url_generator']->generate('chapitre_competences'));
     }
 
@@ -101,11 +101,11 @@ $app->match('/admin/competences/{id}/edit', function($id, Request $request) use 
 })->bind('admin_competences_edit');
 
 
-// Supprimer un visiteur
+// Supprimer
 $app->get('/admin/competences/{id}/delete', function($id, Request $request) use ($app) {
     // Supprimer le visiteur
     $app['dao.competences']->delete($id);
-    $app['session']->getFlashBag()->add('success', 'Elève supprimé avec succès.');
+    $app['session']->getFlashBag()->add('success', 'Supprimé avec succès.');
     // Redirection sur la page des competences
     return $app->redirect($app['url_generator']->generate('chapitre_competences'));
 })->bind('admin_competences_delete');
@@ -154,7 +154,7 @@ $app->match('/admin/eleves/add', function(Request $request) use ($app) {
     //On affiche le formulaire de eleve 
     return $app['twig']->render('eleve_form.html.twig', array(
         'classes' => $classes,
-        'title' => 'Nouveau élève',
+        'title' => 'Nouvel élève',
         'eleveForm' => $eleveForm->createView()));
 })->bind('admin_eleves_add');
 

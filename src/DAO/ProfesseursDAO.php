@@ -38,7 +38,7 @@ class ProfesseursDAO extends DAO
         if ($row)   
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de professeurs pour cette reference " . $id);
+            throw new \Exception("Pas de professeur pour cette reference " . $id);
     }
 
     /**
