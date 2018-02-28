@@ -18,6 +18,19 @@ SET time_zone = "+00:00";
 
 --
 -- Base de données :  `ecole`
+
+
+DROP TABLE IF EXISTS notation;
+DROP TABLE IF EXISTS prof_classe;
+DROP TABLE IF EXISTS professeurs;
+DROP TABLE IF EXISTS eleves;
+DROP TABLE IF EXISTS utilisateurs;
+DROP TABLE IF EXISTS sexe;
+DROP TABLE IF EXISTS competences;
+DROP TABLE IF EXISTS classes;
+DROP TABLE IF EXISTS chapitres;
+DROP TABLE IF EXISTS annee;
+DROP TABLE IF EXISTS niveaux;
 --
 
 -- --------------------------------------------------------
