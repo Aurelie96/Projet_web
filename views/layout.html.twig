@@ -25,13 +25,11 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-target">
                     <ul class="nav navbar-nav navbar-right">
-                        {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <li class="{% if adminMenu is defined %}active{% endif %}"><a><span class="glyphicon glyphicon-cog"></span> Vous êtes connecté en tant qu'administrateur(trice)</a></li>
-                        {% endif %}
                         {% if app.user and is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span> Bienvenue, {{ app.user.username }} <b class="caret"></b></a>
+
+                                <span class="glyphicon glyphicon-user"></span> Bienvenue {{ app.user.username }} {% if app.user and is_granted('ROLE_ADMIN') %} (admin) {% endif %}<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('logout') }}">Deconnexion</a></li>
                                 </ul>
