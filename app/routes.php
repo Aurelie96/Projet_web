@@ -42,11 +42,6 @@ $app->get('/login', function(Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Competences----------------------------------------------
-<<<<<<< HEAD
-
-
-// -------------------------------------------------- Section Eleves----------------------------------------------
-=======
 //Renvoie la page des competences
 $app->get('/chapitre_competences', function () use ($app) {
    
@@ -199,7 +194,6 @@ $app->get('/eleves/{id}', function ($id, Request $request) use ($app) {
     return $app['twig']->render('eleve.html.twig', array(
         'eleves' => $eleves));
 })->bind('eleve');
->>>>>>> master
 
 
 // -------------------------------------------------- Section Niveaux----------------------------------------------
