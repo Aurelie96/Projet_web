@@ -9,14 +9,14 @@ class Chapitres
      *
      * @var integer
      */
-    private $idChapitre;
+    private $id;
 
     /**
      * Chapitres titreChapitre.
      *
      * @var string
      */
-    private $titreChapitre;
+    private $titre;
 
     /**
      * Chapitres idNiveau.
@@ -25,20 +25,20 @@ class Chapitres
      */
     private $idNiveau;
 
-    public function getIdChapitre() {
-        return $this->idChapitre;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdChapitre($idChapitre) {
-        $this->idChapitre = $idChapitre;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getTitreChapitre() {
-        return $this->titreChapitre;
+    public function getTitre() {
+        return $this->titre;
     }
 
-    public function setTitreChapitre($titreChapitre) {
-        $this->titreChapitre = $titreChapitre;
+    public function setTitre($titre) {
+        $this->titre = $titre;
     }
 
     public function getIdNiveau() {

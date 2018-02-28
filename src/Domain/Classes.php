@@ -9,14 +9,14 @@ class Classes
      *
      * @var integer
      */
-    private $idClasse;
+    private $id;
 
     /**
      * Classes nomClasse.
      *
      * @var string
      */
-    private $nomClasse;
+    private $nom;
 
     /**
      * Classes idNiveau.
@@ -32,20 +32,20 @@ class Classes
      */
     private $idAnnee;
 
-    public function getIdClasse() {
-        return $this->idClasse;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdClasse($idClasse) {
-        $this->idClasse = $idClasse;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getNomClasse() {
-        return $this->nomClasse;
+    public function getNom() {
+        return $this->nom;
     }
 
-    public function setNomClasse($nomClasse) {
-        $this->nomClasse = $nomClasse;
+    public function setNom($nom) {
+        $this->nom = $nom;
     }
 
     public function getIdNiveau() {
