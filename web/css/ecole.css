@@ -30,19 +30,20 @@ body {
 .menuGauche {
     min-width: 140px !important;
 }
+    
+#tableChapitre td {
+    white-space: unset !important;
+}
+
+#tableChapitre td:last-child,
+#tableEleves td:last-child {
+    width: 65px !important;
+    text-align: right;
+}
 
 @media (max-width:768px) {
     .largeurMiniBtn {
         margin: 5px 15px !important;
         width: calc(100% - 30px);
-    }
-    
-    #tableChapitre td {
-        white-space: normal !important;
-    }
-    
-    #tableChapitre td:last-child,
-    #tableEleves td:last-child {
-        width: 0px !important;
     }
 }
