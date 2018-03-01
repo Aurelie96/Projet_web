@@ -1,24 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 31 Janvier 2018 à 20:14
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mer. 28 fév. 2018 à 09:40
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données :  `ecole`
-
 
 DROP TABLE IF EXISTS notation;
 DROP TABLE IF EXISTS prof_classe;
@@ -31,6 +23,14 @@ DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS chapitres;
 DROP TABLE IF EXISTS annee;
 DROP TABLE IF EXISTS niveaux;
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `php_math`
 --
 
 -- --------------------------------------------------------
@@ -39,10 +39,20 @@ DROP TABLE IF EXISTS niveaux;
 -- Structure de la table `annee`
 --
 
-CREATE TABLE `annee` (
-  `idAnnee` int(11) NOT NULL,
-  `libelleAnne` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `annee` (
+  `idAnnee` int(11) NOT NULL AUTO_INCREMENT,
+  `libelleAnne` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`idAnnee`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `annee`
+--
+
+INSERT INTO `annee` (`idAnnee`, `libelleAnne`) VALUES
+(1, '2016-2017'),
+(2, '2017-2018');
 
 -- --------------------------------------------------------
 
@@ -50,14 +60,16 @@ CREATE TABLE `annee` (
 -- Structure de la table `chapitres`
 --
 
-CREATE TABLE `chapitres` (
-  `idChapitre` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `chapitres` (
+  `idChapitre` int(11) NOT NULL AUTO_INCREMENT,
   `titreChapitre` varchar(250) DEFAULT NULL,
-  `idNiveau` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idNiveau` int(11) NOT NULL,
+  PRIMARY KEY (`idChapitre`),
+  KEY `FK_chapitres_idNiveau` (`idNiveau`)
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `chapitres`
+-- Déchargement des données de la table `chapitres`
 --
 
 INSERT INTO `chapitres` (`idChapitre`, `titreChapitre`, `idNiveau`) VALUES
@@ -115,12 +127,29 @@ INSERT INTO `chapitres` (`idChapitre`, `titreChapitre`, `idNiveau`) VALUES
 -- Structure de la table `classes`
 --
 
-CREATE TABLE `classes` (
-  `idClasse` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `classes` (
+  `idClasse` int(11) NOT NULL AUTO_INCREMENT,
   `nomClasse` varchar(25) DEFAULT NULL,
   `idNiveau` int(11) NOT NULL,
-  `idAnnee` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idAnnee` int(11) NOT NULL,
+  PRIMARY KEY (`idClasse`),
+  KEY `FK_classes_idNiveau` (`idNiveau`),
+  KEY `FK_classes_idAnnee` (`idAnnee`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `classes`
+--
+
+INSERT INTO `classes` (`idClasse`, `nomClasse`, `idNiveau`, `idAnnee`) VALUES
+(1, '6ème A', 1, 2),
+(2, '6ème B', 1, 2),
+(3, '5ème A', 2, 2),
+(4, '5ème B', 2, 2),
+(5, '4ème A', 3, 2),
+(6, '4ème B', 3, 2),
+(7, '3ème A', 4, 2),
+(8, '3ème B', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -128,14 +157,16 @@ CREATE TABLE `classes` (
 -- Structure de la table `competences`
 --
 
-CREATE TABLE `competences` (
-  `idCompetence` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `competences` (
+  `idCompetence` int(11) NOT NULL AUTO_INCREMENT,
   `titreCompetence` varchar(250) DEFAULT NULL,
-  `idChapitre` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idChapitre` int(11) NOT NULL,
+  PRIMARY KEY (`idCompetence`),
+  KEY `FK_competences_idChapitre` (`idChapitre`)
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `competences`
+-- Déchargement des données de la table `competences`
 --
 
 INSERT INTO `competences` (`idCompetence`, `titreCompetence`, `idChapitre`) VALUES
@@ -242,14 +273,18 @@ INSERT INTO `competences` (`idCompetence`, `titreCompetence`, `idChapitre`) VALU
 -- Structure de la table `eleves`
 --
 
-CREATE TABLE `eleves` (
-  `idEleve` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `eleves` (
+  `idEleve` int(11) NOT NULL AUTO_INCREMENT,
   `nomEleve` varchar(250) DEFAULT NULL,
   `prenomEleve` varchar(250) DEFAULT NULL,
   `idClasse` int(11) NOT NULL,
   `idSexe` int(11) NOT NULL,
-  `idUtilisateur` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idUtilisateur` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idEleve`),
+  KEY `FK_eleves_idSexe` (`idSexe`),
+  KEY `FK_eleves_idUtilisateur` (`idUtilisateur`),
+  KEY `FK_eleves_idClasse` (`idClasse`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -257,20 +292,21 @@ CREATE TABLE `eleves` (
 -- Structure de la table `niveaux`
 --
 
-CREATE TABLE `niveaux` (
-  `idNiveau` int(11) NOT NULL,
-  `titreNiveau` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `niveaux` (
+  `idNiveau` int(11) NOT NULL AUTO_INCREMENT,
+  `titreNiveau` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`idNiveau`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `niveaux`
+-- Déchargement des données de la table `niveaux`
 --
 
 INSERT INTO `niveaux` (`idNiveau`, `titreNiveau`) VALUES
-(1, '6 ième'),
-(2, '5 ième'),
-(3, '4 ième'),
-(4, '3 ième');
+(1, '6ème'),
+(2, '5ème'),
+(3, '4ème'),
+(4, '3ème');
 
 -- --------------------------------------------------------
 
@@ -278,12 +314,15 @@ INSERT INTO `niveaux` (`idNiveau`, `titreNiveau`) VALUES
 -- Structure de la table `notation`
 --
 
-CREATE TABLE `notation` (
-  `idNotation` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `notation` (
+  `idNotation` int(11) NOT NULL AUTO_INCREMENT,
   `libelleNotation` varchar(25) DEFAULT NULL,
   `idCompetence` int(11) NOT NULL,
-  `idEleve` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idEleve` int(11) NOT NULL,
+  PRIMARY KEY (`idNotation`),
+  KEY `FK_notation_idCompetence` (`idCompetence`),
+  KEY `FK_notation_idEleve` (`idEleve`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -291,16 +330,19 @@ CREATE TABLE `notation` (
 -- Structure de la table `professeurs`
 --
 
-CREATE TABLE `professeurs` (
-  `idProfesseur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `professeurs` (
+  `idProfesseur` int(11) NOT NULL AUTO_INCREMENT,
   `nomProfesseur` varchar(250) DEFAULT NULL,
   `prenomProfesseur` varchar(250) DEFAULT NULL,
   `idSexe` int(11) NOT NULL,
-  `idUtilisateur` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idUtilisateur` int(11) DEFAULT NULL,
+  PRIMARY KEY (`idProfesseur`),
+  KEY `FK_professeurs_idSexe` (`idSexe`),
+  KEY `FK_professeurs_idUtilisateur` (`idUtilisateur`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `professeurs`
+-- Déchargement des données de la table `professeurs`
 --
 
 INSERT INTO `professeurs` (`idProfesseur`, `nomProfesseur`, `prenomProfesseur`, `idSexe`, `idUtilisateur`) VALUES
@@ -312,9 +354,11 @@ INSERT INTO `professeurs` (`idProfesseur`, `nomProfesseur`, `prenomProfesseur`, 
 -- Structure de la table `prof_classe`
 --
 
-CREATE TABLE `prof_classe` (
+CREATE TABLE IF NOT EXISTS `prof_classe` (
   `idClasse` int(11) NOT NULL,
-  `idProfesseur` int(11) NOT NULL
+  `idProfesseur` int(11) NOT NULL,
+  PRIMARY KEY (`idClasse`,`idProfesseur`),
+  KEY `FK_prof_classe_idProfesseur` (`idProfesseur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -323,13 +367,14 @@ CREATE TABLE `prof_classe` (
 -- Structure de la table `sexe`
 --
 
-CREATE TABLE `sexe` (
-  `idSexe` int(11) NOT NULL,
-  `nomSexe` varchar(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `sexe` (
+  `idSexe` int(11) NOT NULL AUTO_INCREMENT,
+  `nomSexe` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`idSexe`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `sexe`
+-- Déchargement des données de la table `sexe`
 --
 
 INSERT INTO `sexe` (`idSexe`, `nomSexe`) VALUES
@@ -343,16 +388,17 @@ INSERT INTO `sexe` (`idSexe`, `nomSexe`) VALUES
 -- Structure de la table `utilisateurs`
 --
 
-CREATE TABLE `utilisateurs` (
-  `idUtilisateur` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `utilisateurs` (
+  `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT,
   `loginUtilisateur` varchar(250) DEFAULT NULL,
   `mdpUtilisateur` varchar(250) DEFAULT NULL,
   `saltUtilisateur` varchar(250) DEFAULT NULL,
-  `roleUtilisateur` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `roleUtilisateur` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`idUtilisateur`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `utilisateurs`
+-- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`idUtilisateur`, `loginUtilisateur`, `mdpUtilisateur`, `saltUtilisateur`, `roleUtilisateur`) VALUES
@@ -361,143 +407,7 @@ INSERT INTO `utilisateurs` (`idUtilisateur`, `loginUtilisateur`, `mdpUtilisateur
 (3, 'admin', 'gqeuP4YJ8hU3ZqGwGikB6+rcZBqefVy+7hTLQkOD+jwVkp4fkS7/gr1rAQfn9VUKWc7bvOD7OsXrQQN5KGHbfg==', 'EDDsl&fBCJB|a5XUtAlnQN8', 'ROLE_ADMIN');
 
 --
--- Index pour les tables exportées
---
-
---
--- Index pour la table `annee`
---
-ALTER TABLE `annee`
-  ADD PRIMARY KEY (`idAnnee`);
-
---
--- Index pour la table `chapitres`
---
-ALTER TABLE `chapitres`
-  ADD PRIMARY KEY (`idChapitre`),
-  ADD KEY `FK_chapitres_idNiveau` (`idNiveau`);
-
---
--- Index pour la table `classes`
---
-ALTER TABLE `classes`
-  ADD PRIMARY KEY (`idClasse`),
-  ADD KEY `FK_classes_idNiveau` (`idNiveau`),
-  ADD KEY `FK_classes_idAnnee` (`idAnnee`);
-
---
--- Index pour la table `competences`
---
-ALTER TABLE `competences`
-  ADD PRIMARY KEY (`idCompetence`),
-  ADD KEY `FK_competences_idChapitre` (`idChapitre`);
-
---
--- Index pour la table `eleves`
---
-ALTER TABLE `eleves`
-  ADD PRIMARY KEY (`idEleve`),
-  ADD KEY `FK_eleves_idClasse` (`idClasse`),
-  ADD KEY `FK_eleves_idSexe` (`idSexe`),
-  ADD KEY `FK_eleves_idUtilisateur` (`idUtilisateur`);
-
---
--- Index pour la table `niveaux`
---
-ALTER TABLE `niveaux`
-  ADD PRIMARY KEY (`idNiveau`);
-
---
--- Index pour la table `notation`
---
-ALTER TABLE `notation`
-  ADD PRIMARY KEY (`idNotation`),
-  ADD KEY `FK_notation_idCompetence` (`idCompetence`),
-  ADD KEY `FK_notation_idEleve` (`idEleve`);
-
---
--- Index pour la table `professeurs`
---
-ALTER TABLE `professeurs`
-  ADD PRIMARY KEY (`idProfesseur`),
-  ADD KEY `FK_professeurs_idSexe` (`idSexe`),
-  ADD KEY `FK_professeurs_idUtilisateur` (`idUtilisateur`);
-
---
--- Index pour la table `prof_classe`
---
-ALTER TABLE `prof_classe`
-  ADD PRIMARY KEY (`idClasse`,`idProfesseur`),
-  ADD KEY `FK_prof_classe_idProfesseur` (`idProfesseur`);
-
---
--- Index pour la table `sexe`
---
-ALTER TABLE `sexe`
-  ADD PRIMARY KEY (`idSexe`);
-
---
--- Index pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`idUtilisateur`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `annee`
---
-ALTER TABLE `annee`
-  MODIFY `idAnnee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `chapitres`
---
-ALTER TABLE `chapitres`
-  MODIFY `idChapitre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
---
--- AUTO_INCREMENT pour la table `classes`
---
-ALTER TABLE `classes`
-  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `competences`
---
-ALTER TABLE `competences`
-  MODIFY `idCompetence` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
---
--- AUTO_INCREMENT pour la table `eleves`
---
-ALTER TABLE `eleves`
-  MODIFY `idEleve` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `niveaux`
---
-ALTER TABLE `niveaux`
-  MODIFY `idNiveau` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT pour la table `notation`
---
-ALTER TABLE `notation`
-  MODIFY `idNotation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `professeurs`
---
-ALTER TABLE `professeurs`
-  MODIFY `idProfesseur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT pour la table `sexe`
---
-ALTER TABLE `sexe`
-  MODIFY `idSexe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables déchargées
 --
 
 --
@@ -547,6 +457,7 @@ ALTER TABLE `professeurs`
 ALTER TABLE `prof_classe`
   ADD CONSTRAINT `FK_prof_classe_idClasse` FOREIGN KEY (`idClasse`) REFERENCES `classes` (`idClasse`),
   ADD CONSTRAINT `FK_prof_classe_idProfesseur` FOREIGN KEY (`idProfesseur`) REFERENCES `professeurs` (`idProfesseur`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
