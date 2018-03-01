@@ -738,7 +738,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.7.41",
+            "version": "v2.7.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
@@ -960,16 +960,16 @@
         },
         {
             "name": "symfony/form",
-            "version": "v2.7.41",
+            "version": "v2.7.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/form.git",
-                "reference": "7593de59836b17fd24e6279eacf921639c41ab6d"
+                "reference": "c320736befcbc8328e9a8df09ea44921729ced16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/form/zipball/7593de59836b17fd24e6279eacf921639c41ab6d",
-                "reference": "7593de59836b17fd24e6279eacf921639c41ab6d",
+                "url": "https://api.github.com/repos/symfony/form/zipball/c320736befcbc8328e9a8df09ea44921729ced16",
+                "reference": "c320736befcbc8328e9a8df09ea44921729ced16",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-27T11:01:42+00:00"
+            "time": "2018-02-13T09:02:42+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1667,16 +1667,16 @@
         },
         {
             "name": "symfony/security",
-            "version": "v2.7.41",
+            "version": "v2.7.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security.git",
-                "reference": "bc0aeb1aaa3ff2d7e143181bf8366fac19bdca42"
+                "reference": "94979b91c6501c9222db989a3a7e4f8e3ced330e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security/zipball/bc0aeb1aaa3ff2d7e143181bf8366fac19bdca42",
-                "reference": "bc0aeb1aaa3ff2d7e143181bf8366fac19bdca42",
+                "url": "https://api.github.com/repos/symfony/security/zipball/94979b91c6501c9222db989a3a7e4f8e3ced330e",
+                "reference": "94979b91c6501c9222db989a3a7e4f8e3ced330e",
                 "shasum": ""
             },
             "require": {
@@ -1746,11 +1746,11 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-18T10:45:20+00:00"
+            "time": "2018-02-19T14:59:04+00:00"
         },
         {
             "name": "symfony/translation",
-            "version": "v2.7.41",
+            "version": "v2.7.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
@@ -1891,16 +1891,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v2.7.41",
+            "version": "v2.7.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "cdd2be7d869bbd40638ac089bcc7a32c2bdd8469"
+                "reference": "5cff4d7cb0e12e285b4cfa6f3198aee16459ce7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/cdd2be7d869bbd40638ac089bcc7a32c2bdd8469",
-                "reference": "cdd2be7d869bbd40638ac089bcc7a32c2bdd8469",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/5cff4d7cb0e12e285b4cfa6f3198aee16459ce7f",
+                "reference": "5cff4d7cb0e12e285b4cfa6f3198aee16459ce7f",
                 "shasum": ""
             },
             "require": {
@@ -1960,7 +1960,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-23T19:05:41+00:00"
+            "time": "2018-02-12T12:32:32+00:00"
         },
         {
             "name": "twig/extensions",

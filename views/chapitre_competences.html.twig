@@ -86,7 +86,7 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas d'competence trouvés...</div>
+        <div class="alert alert-warning">Pas de compétences trouvées...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>

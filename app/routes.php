@@ -49,10 +49,9 @@ $app->get('/chapitre_competences', function () use ($app) {
     $chapitres = $app['dao.chapitres']->findAll();
 
     //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les competences du chapitre en question
-    if(isset($_GET['chapitres']) && $_GET['chapitres'] != 0){   
-        $chapitre = $_GET['chapitres'];
+    if(isset($_GET['chapitre']) && $_GET['chapitre'] != 0){   
+        $chapitre = $_GET['chapitre'];
         $competences = $app['dao.competences']->findCompetencesByChapitre($chapitre);
-        
     }
     //on affiche la page avec un tableau de competence triables par chapitre
     return $app['twig']->render('chapitre_competences.html.twig', array(
@@ -126,8 +125,8 @@ $app->get('/classe_eleves', function () use ($app) {
     $classes = $app['dao.classes']->findAll();
 
     //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les eleves du classe en question
-    if(isset($_GET['classes']) && $_GET['classes'] != 0){   
-        $classe = $_GET['classes'];
+    if(isset($_GET['classe']) && $_GET['classe'] != 0){   
+        $classe = $_GET['classe'];
         $eleves = $app['dao.eleves']->findElevesByClasse($classe);
         
     }
