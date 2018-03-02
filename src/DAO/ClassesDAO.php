@@ -26,7 +26,19 @@ class ClassesDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de classe pour cette référence " . $id);
+            throw new \Exception("Pas de classe pour cette reference " . $id);
+    }
+
+    public function findClasseByNiveaux($idNiveaux) {
+        $sql = "select * from classes where idNiveau =".$idNiveaux." order by idClasse asc";
+        $result = $this->getDb()->fetchAll($sql);
+
+        $classes = array();
+        foreach ($result as $row) {
+            $classeId = $row['idClasse'];
+            $classes[$classeId] = $this->buildDomainObject($row);
+        }
+        return $classes;
     }
 
     public function save(Classes $classe) {
@@ -36,13 +48,13 @@ class ClassesDAO extends DAO
             'idAnnee' => $classe->getIdAnnee()
             );
 
-        if ($secteur->getId()) {
+        if ($classe->getId()) {
             $this->getDb()->update('classes', $classeData, array('idClasse' => $classe->getId()));
         } else {
             $this->getDb()->insert('classes', $classeData);
 
             $id = $this->getDb()->lastInsertId();
-            $secteur->setId($id);
+            $classe->setId($id);
         }
     }
     

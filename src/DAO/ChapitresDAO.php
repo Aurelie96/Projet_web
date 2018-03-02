@@ -26,7 +26,19 @@ class ChapitresDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de chapitre pour cette référence " . $id);
+            throw new \Exception("Pas de chapitre pour cette reference " . $id);
+    }
+
+    public function findNiveauByIdChapitre($idNiveaux) {
+        $sql = "select * from chapitres where idNiveau =".$idNiveaux." order by idChapitre asc";
+        $result = $this->getDb()->fetchAll($sql);
+
+        $chapitres = array();
+        foreach ($result as $row) {
+            $chapitreId = $row['idChapitre'];
+            $chapitres[$chapitreId] = $this->buildDomainObject($row);
+        }
+        return $chapitres;
     }
 
     public function save(Chapitres $chapitre) {

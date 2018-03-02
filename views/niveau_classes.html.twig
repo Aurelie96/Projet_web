@@ -1,27 +1,27 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Classes{% endblock %}
+{% block title %}Choix des classes{% endblock %}
 
 {% block content %}
 
 	<div class="well">
 
-			<form class="form-horizontal" action="{{ path('classe_eleves') }}" methode="post">
+			<form class="form-horizontal" action="{{ path('niveau_classes') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-xs-12 col-sm-4" for="classeEle">Trier par Classe d'élèves :</label>
+					<label class="col-sm-4" for="niveauCom">Trier par niveau' :</label>
 
-					<div class="col-xs-12 col-sm-6">
-						<select class="form-control" name="classe" ref="classse">
+					<div class="col-sm-6">
+						<select class="form-control" name="niveau" ref="classse">
 								
-								<option value="0" >-- Sélectionner une classe --</option>
-							{% for classe in classes %}
-								<option value="{{ classe.id }}">{{ classe.nom }}</option>
+								<option value="0" >-- Sélectionner un niveau --</option>
+							{% for niveau in niveaux %}
+								<option value="{{ niveau.id }}">{{ niveau.titre }}</option>
 							{% endfor %}
 						</select>
 					</div>
 
-					<button type="submit" value="ok" class="largeurMiniBtn col-xs-12 col-sm-2 btn btn-primary">OK</button>
+					<button type="submit" value="ok" class="btn btn-primary">OK</button>
 
 				</div>
 
@@ -42,29 +42,27 @@
     {% endfor %}
 
 	<div class="tab-content"> 
-    <div class="tab-pane fade in active adminTable" ref="eleves">
-        {% if eleves %}
+    <div class="tab-pane fade in active adminTable" ref="classes">
+        {% if classes %}
         <div class="table-responsive">
-            <table id="tableEleves" class="table table-hover table-condensed">
+            <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Action</th>  <!-- Actions column -->
+                        <th>Titre classe</th>
+                        <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
-                {% for eleve in eleves %}
+                {% for classe in classes %}
                     <tr>
-                        <td><a class="eleveTitre" href="{{   path('eleve', { 'id': eleve.id }) }}">{{ eleve.nom }}</a></td>
-                        <td>{{ eleve.prenom | truncate(60) }}</td>
+                        <td><a class="classeTitre" href="{{   path('classe', { 'id': classe.id }) }}">{{ classe.nom }}</a></td>
                          {% if app.user and is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('admin_eleves_edit', { 'id': eleve.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{{ path('admin_classes_edit', { 'id': classe.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
 
-                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#eleveDialog{{ eleve.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#classeDialog{{ classe.id }}"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
 
-                                 <div class="modal fade" id="eleveDialog{{ eleve.id }}" ref="eleveDialog{{ eleve.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                 <div class="modal fade" id="classeDialog{{ classe.id }}" ref="classeDialog{{ classe.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -72,11 +70,11 @@
                                                 <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
                                             </div>
                                             <div class="modal-body">
-                                                Voulez-vous vraiment supprimer cet élève ?
+                                                Voulez-vous vraiment supprimer cette classe ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="{{ path('admin_eleves_delete', { 'id': eleve.id }) }}" class="btn btn-danger">Confirmer</a>
+                                                <a href="{{ path('admin_classes_delete', { 'id': classe.id }) }}" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -88,10 +86,10 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas d'élève trouvé...</div>
+        <div class="alert alert-warning">Pas de classes trouvées...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_eleves_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouvel élève</button></a>
+            <a href="{{ path('admin_classes_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau élève</button></a>
         {% endif %}
     </div>
  
