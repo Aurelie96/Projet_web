@@ -9,7 +9,7 @@
 			<form class="form-horizontal" action="{{ path('chapitre_competences') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-xs-12 col-sm-4" for="chapitreCom">Trier par Chapitre :</label>
+					<label class="col-xs-12 col-sm-4" for="chapitreCom">Trier par chapitre :</label>
 
 					<div class="col-xs-12 col-sm-6">
 						<select class="form-control" name="chapitre" ref="classse">
@@ -49,7 +49,10 @@
                 <thead>
                     <tr>
                         <th>Liste des compétences</th>
-                        <th>Action</th>  <!-- Actions column -->
+
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <th>Action</th>  <!-- Actions column -->
+                        {% endif %}
                     </tr>
                 </thead>
                 {% for competence in competences %}
@@ -92,7 +95,7 @@
         <div class="alert alert-warning">Pas de compétence trouvée...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter</button></a>
+            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter une compétence</button></a>
         {% endif %}
     </div>
  
