@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Détail classe{% endblock %}
+
+{% block content %}
+
+<div class="well">
+    <article>
+        <h2><a class="classeTitle" href="">{{ classes.nom }}</a></h2>
+        <p>niveaux : {{ classes.idNiveau }}</p>
+        <p>année : {{ classes.idAnnee }}</p>
+    </article>
+</div>
+
+
+<a style="float: right; margin : 1%; " class="btn btn-default" href="{{   path('niveau_classes') }}"><span class="glyphicon glyphicon-menu-left"></span> Retour</a>
+{% endblock %}

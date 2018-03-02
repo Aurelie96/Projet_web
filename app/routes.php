@@ -17,6 +17,7 @@ use Projet_web\Form\Type\ProfesseursType;
 use Projet_web\Form\Type\ElevesType;
 use Projet_web\Form\Type\ChapitresType;
 use Projet_web\Form\Type\CompetenceType;
+use Projet_web\Form\Type\ClassesType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {
@@ -111,7 +112,81 @@ $app->get('/chapitres/{id}', function ($id, Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Classes----------------------------------------------
+//Renvoie la page des competences
+$app->get('/niveau_classes', function () use ($app) {
+   
+    $classes = $app['dao.classes']->findAll();
+    $niveaux = $app['dao.niveaux']->findAll();
 
+    //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les competences du chapitre en question
+    if(isset($_GET['niveau']) && $_GET['niveau'] != 0){   
+        $niveau = $_GET['niveau'];
+        $classes = $app['dao.classes']->findClasseByNiveaux($niveau);
+        
+    }
+    //on affiche la page avec un tableau de competence triables par chapitre
+    return $app['twig']->render('niveau_classes.html.twig', array(
+        'classes' => $classes,
+        'niveaux' => $niveaux ));
+})->bind('niveau_classes');
+
+
+// Ajouter une nouveau competence
+$app->match('/admin/classes/add', function(Request $request) use ($app) {
+    $niveaux = $app['dao.niveaux']->findAll();
+    $classe = new Classes();
+    $classeForm = $app['form.factory']->create(new ClassesType(), $classe);
+    $classeForm->handleRequest($request);
+
+    //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page competence
+    if ($classeForm->isSubmitted() && $classeForm->isValid()) {
+        $app['dao.classes']->save($classe);
+        $app['session']->getFlashBag()->add('success', 'Classe créé avec succès.');
+        return $app->redirect($app['url_generator']->generate('niveau_classes'));
+    }
+    //On affiche le formulaire de competence 
+    return $app['twig']->render('classe_form.html.twig', array(
+        'niveaux' => $niveaux,
+        'title' => 'Nouvele classe',
+        'classeForm' => $classeForm->createView()));
+})->bind('admin_classes_add');
+
+// Editer un competence existant
+$app->match('/admin/classes/{id}/edit', function($id, Request $request) use ($app) {
+    $classe = $app['dao.classes']->find($id);
+    $classeForm = $app['form.factory']->create(new ClassesType(), $classe);
+    $classeForm->handleRequest($request);
+    
+    //Si la demande a été soumise on enregistre puis on redirige sur la page competence
+    if ($classeForm->isSubmitted() && $classeForm->isValid()) {
+        $app['dao.classes']->save($classe);
+        $app['session']->getFlashBag()->add('success', 'Classe modifié avec succès.');
+        return $app->redirect($app['url_generator']->generate('niveau_classes'));
+    }
+
+    //On affiche par defaut le formulaire de visiteur rempli avec les données du visiteur
+    return $app['twig']->render('classe_form.html.twig', array(
+        'title' => 'Editer une classe',
+        'classeForm' => $classeForm->createView()));
+})->bind('admin_classes_edit');
+
+
+// Supprimer un visiteur
+$app->get('/admin/classes/{id}/delete', function($id, Request $request) use ($app) {
+    // Supprimer le visiteur
+    $app['dao.classes']->delete($id);
+    $app['session']->getFlashBag()->add('success', 'Classes supprimé avec succès.');
+    // Redirection sur la page des competences
+    return $app->redirect($app['url_generator']->generate('niveau_classes'));
+})->bind('admin_classes_delete');
+
+
+// Afficher le détail d'un competence 
+$app->get('/classes/{id}', function ($id, Request $request) use ($app) {
+    $classes = $app['dao.classes']->find($id);
+    return $app['twig']->render('classe.html.twig', array(
+        'classes' => $classes));
+})->bind('classe');
 
 // -------------------------------------------------- Section Competences----------------------------------------------
 //Renvoie la page des competences
