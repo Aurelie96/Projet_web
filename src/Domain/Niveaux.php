@@ -9,28 +9,28 @@ class Niveaux
      *
      * @var integer
      */
-    private $idNiveau;
+    private $id;
 
     /**
      * Niveaux titreNiveau.
      *
      * @var string
      */
-    private $titreNiveau;
+    private $titre;
 
-    public function getIdNiveau() {
-        return $this->idNiveau;
+    public function getId() {
+        return $this->id;
     }
 
-    public function setIdNiveau($idNiveau) {
-        $this->idNiveau = $idNiveau;
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getTitreNiveau() {
-        return $this->titreNiveau;
+    public function getTitre() {
+        return $this->titre;
     }
 
-    public function setTitreNiveau($titreNiveau) {
-        $this->titreNiveau = $titreNiveau;
+    public function setTitre($titre) {
+        $this->titre = $titre;
     }
 }

@@ -36,6 +36,78 @@ $app->get('/login', function(Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Chapitres----------------------------------------------
+$app->get('/niveau_chapitres', function () use ($app) {
+   
+    $chapitres = $app['dao.chapitres']->findAll();
+    $niveaux = $app['dao.niveaux']->findAll();
+
+    //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les competences du chapitre en question
+    if(isset($_GET['niveau']) && $_GET['niveau'] != 0){   
+        $niveau = $_GET['niveau'];
+        $chapitres = $app['dao.chapitres']->findNiveauByIdChapitre($niveau);
+    }
+    //on affiche la page avec un tableau de competence triables par chapitre
+    return $app['twig']->render('niveau_chapitres.html.twig', array(
+        'chapitres' => $chapitres,
+        'niveaux' => $niveaux ));
+})->bind('niveau_chapitres');
+
+// Ajouter une nouveau competence
+$app->match('/admin/niveaux/add', function(Request $request) use ($app) {
+    $niveaux = $app['dao.niveaux']->findAll();
+    $chapitre = new Chapitres();
+    $chapitreForm = $app['form.factory']->create(new ChapitresType(), $chapitre);
+    $chapitreForm->handleRequest($request);
+
+    //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page niveau
+    if ($chapitreForm->isSubmitted() && $chapitreForm->isValid()) {
+        $app['dao.chapitres']->save($chapitre);
+        $app['session']->getFlashBag()->add('success', 'Chapitre  créé avec succès.');
+        return $app->redirect($app['url_generator']->generate('niveau_chapitres'));
+    }
+    //On affiche le formulaire de chapitres 
+    return $app['twig']->render('chapitre_form.html.twig', array(
+        'niveaux' => $niveaux,
+        'title' => 'Nouveau chapitre',
+        'chapitreForm' => $chapitreForm->createView()));
+})->bind('admin_chapitres_add');
+
+// Editer un chapitre existant
+$app->match('/admin/chapitres/{id}/edit', function($id, Request $request) use ($app) {
+    $chapitre = $app['dao.chapitres']->find($id);
+    $chapitreForm = $app['form.factory']->create(new ChapitresType(), $chapitre);
+    $chapitreForm->handleRequest($request);
+    
+    //Si la demande a été soumise on enregistre puis on redirige sur la page niveau
+    if ($chapitreForm->isSubmitted() && $chapitreForm->isValid()) {
+        $app['dao.chapitres']->save($chapitre);
+        $app['session']->getFlashBag()->add('success', 'Chapitre modifié avec succès.');
+        return $app->redirect($app['url_generator']->generate('niveau_chapitres'));
+    }
+
+    //On affiche par defaut le formulaire de visiteur rempli avec les données du visiteur
+    return $app['twig']->render('chapitre_form.html.twig', array(
+        'title' => 'Editer un chapitre',
+        'chapitreForm' => $chapitreForm->createView()));
+})->bind('admin_chapitres_edit');
+
+
+// Supprimer un visiteur
+$app->get('/admin/chapitres/{id}/delete', function($id, Request $request) use ($app) {
+    // Supprimer le visiteur
+    $app['dao.chapitres']->delete($id);
+    $app['session']->getFlashBag()->add('success', 'Chapitre supprimé avec succès.');
+    // Redirection sur la page des niveaux
+    return $app->redirect($app['url_generator']->generate('niveau_chapitres'));
+})->bind('admin_chapitres_delete');
+
+
+// Afficher le détail d'un competence 
+$app->get('/chapitres/{id}', function ($id, Request $request) use ($app) {
+    $chapitres = $app['dao.chapitres']->find($id);
+    return $app['twig']->render('chapitre.html.twig', array(
+        'chapitres' => $chapitres));
+})->bind('chapitre');
 
 
 // -------------------------------------------------- Section Classes----------------------------------------------

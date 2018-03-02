@@ -1,22 +1,22 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Choix des compétences{% endblock %}
+{% block title %}Choix des chapitres{% endblock %}
 
 {% block content %}
 
 	<div class="well">
 
-			<form class="form-horizontal" action="{{ path('chapitre_competences') }}" methode="post">
+			<form class="form-horizontal" action="{{ path('niveau_chapitres') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-sm-4" for="chapitreCom">Trier par Chapitre' :</label>
+					<label class="col-sm-4" for="niveauCom">Trier par Niveau' :</label>
 
 					<div class="col-sm-6">
-						<select class="form-control" name="chapitre" ref="classe">
+						<select class="form-control" name="niveau" ref="classe">
 								
-								<option value="0" >-- Sélectionner un chapitre --</option>
-							{% for chapitre in chapitres %}
-								<option value="{{ chapitre.id }}">{{ chapitre.titre }}</option>
+								<option value="0" >-- Sélectionner un niveau --</option>
+							{% for niveau in niveaux %}
+								<option value="{{ niveau.id }}">{{ niveau.titre }}</option>
 							{% endfor %}
 						</select>
 					</div>
@@ -42,27 +42,27 @@
     {% endfor %}
 
 	<div class="tab-content"> 
-    <div class="tab-pane fade in active adminTable" ref="competences">
-        {% if competences %}
+    <div class="tab-pane fade in active adminTable" ref="chapitres">
+        {% if chapitres %}
         <div class="table-responsive">
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th>Titre compétence</th>
+                        <th>Titre chapitre</th>
                         <th></th>  <!-- Actions column -->
                     </tr>
                 </thead>
-                {% for competence in competences %}
+                {% for chapitre in chapitres %}
                     <tr>
-                        <td><a class="competenceTitre" href="{{   path('competence', { 'id': competence.id }) }}">{{ competence.titre }}</a></td>
+                        <td><a class="chapitreTitre" href="{{   path('chapitre', { 'id': chapitre.id }) }}">{{ chapitre.titre }}</a></td>
                          {% if app.user and is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a href="{{ path('admin_competences_edit', { 'id': competence.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+                                <a href="{{ path('admin_chapitres_edit', { 'id': chapitre.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
 
-                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#competenceDialog{{ competence.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#chapitreDialog{{ chapitre.id }}"><span class="glyphicon glyphicon-remove"></span>
                                 </button>
 
-                                 <div class="modal fade" id="competenceDialog{{ competence.id }}" ref="competenceDialog{{ competence.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                 <div class="modal fade" id="chapitreDialog{{ chapitre.id }}" ref="chapitreDialog{{ chapitre.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -70,11 +70,11 @@
                                                 <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
                                             </div>
                                             <div class="modal-body">
-                                                Voulez-vous vraiment supprimer cette competence ?
+                                                Voulez-vous vraiment supprimer cette chapitre ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="{{ path('admin_competences_delete', { 'id': competence.id }) }}" class="btn btn-danger">Confirmer</a>
+                                                <a href="{{ path('admin_chapitres_delete', { 'id': chapitre.id }) }}" class="btn btn-danger">Confirmer</a>
                                             </div>
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -86,10 +86,10 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas de compétences trouvées...</div>
+        <div class="alert alert-warning">Pas de chapitre trouvées...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>
+            <a href="{{ path('admin_chapitres_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Chapitre</button></a>
         {% endif %}
     </div>
  
