@@ -26,7 +26,7 @@ class ChapitresDAO extends DAO
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de chapitre pour cette reference " . $id);
+            throw new \Exception("Pas de chapitre pour cette référence " . $id);
     }
 
     public function save(Chapitres $chapitre) {

@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Choix des compétences{% endblock %}
+{% block title %}Compétences{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
 			<form class="form-horizontal" action="{{ path('chapitre_competences') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-sm-4" for="chapitreCom">Trier par Chapitre' :</label>
+					<label class="col-sm-4" for="chapitreCom">Trier par chapitre :</label>
 
 					<div class="col-sm-6">
 						<select class="form-control" name="chapitre" ref="classse">
@@ -48,8 +48,8 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th>Titre compétence</th>
-                        <th></th>  <!-- Actions column -->
+                        <th>Liste des compétences</th>
+                        <th>Action</th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 {% for competence in competences %}
@@ -70,7 +70,7 @@
                                                 <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
                                             </div>
                                             <div class="modal-body">
-                                                Voulez-vous vraiment supprimer cette competence ?
+                                                Voulez-vous vraiment supprimer cette compétence ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -86,10 +86,10 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas d'competence trouvés...</div>
+        <div class="alert alert-warning">Pas de compétence trouvée...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>
+            <a href="{{ path('admin_competences_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter</button></a>
         {% endif %}
     </div>
  

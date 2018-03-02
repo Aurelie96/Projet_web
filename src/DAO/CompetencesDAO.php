@@ -36,7 +36,7 @@ class CompetencesDAO extends DAO
         if ($row)   
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas de competence pour cette reference " . $id);
+            throw new \Exception("Pas de compétence pour cette reference " . $id);
     }
     
     public function save(Competences $competence) {

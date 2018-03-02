@@ -1,6 +1,6 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Choix des classes{% endblock %}
+{% block title %}Classes{% endblock %}
 
 {% block content %}
 
@@ -9,12 +9,12 @@
 			<form class="form-horizontal" action="{{ path('classe_eleves') }}" methode="post">
 				<div class="form-group">
 
-					<label class="col-sm-4" for="classeEle">Trier par Classe d'élèves' :</label>
+					<label class="col-sm-4" for="classeEle">Trier par classe :</label>
 
 					<div class="col-sm-6">
 						<select class="form-control" name="classe" ref="classse">
 								
-								<option value="0" >-- Sélectionner une Classe --</option>
+								<option value="0" >-- Sélectionner une classe --</option>
 							{% for classe in classes %}
 								<option value="{{ classe.id }}">{{ classe.nom }}</option>
 							{% endfor %}
@@ -48,9 +48,9 @@
             <table class="table table-hover table-condensed">
                 <thead>
                     <tr>
-                        <th>Nom eleve</th>
-                        <th>Prenom eleve</th>
-                        <th></th>  <!-- Actions column -->
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Action</th>  <!-- Actions column -->
                     </tr>
                 </thead>
                 {% for eleve in eleves %}
@@ -72,7 +72,7 @@
                                                 <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
                                             </div>
                                             <div class="modal-body">
-                                                Voulez-vous vraiment supprimer cette eleve ?
+                                                Voulez-vous vraiment supprimer cet élève ?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -88,10 +88,10 @@
             </table>
         </div>
         {% else %}
-        <div class="alert alert-warning">Pas d'eleve trouvés...</div>
+        <div class="alert alert-warning">Pas d'élève trouvé...</div>
         {% endif %}
         {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_eleves_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau Eleve</button></a>
+            <a href="{{ path('admin_eleves_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouvel élève</button></a>
         {% endif %}
     </div>
  
