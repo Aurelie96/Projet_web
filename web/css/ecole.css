@@ -46,7 +46,7 @@ body {
 #tableChapitre td:first-child,
 #tableEleves td:first-child,
 #tableNiveauClasses td:first-child,
-#tableNiveauChapitres td:first-child{;
+#tableNiveauChapitres td:first-child{
     text-align: left !important;
 }
 
