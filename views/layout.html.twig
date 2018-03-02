@@ -54,23 +54,11 @@
             {% if app.user %}
                 <div class="col-xs-3 col-md-3 menuGauche">
                     <ul class="nav nav-pills nav-stacked">
-<<<<<<< HEAD
-           
-                        <li role="presentation" class="active"><a href="{{ path('login') }}">Accueil</a></li>
-{#
-                        <li role="presentation"><a href="#}
-{#{{ path('professeurs') }}#}{#
-">Professeur</a></li>
-#}
-                        <li role="presentation"><a href="{{ path('classe_eleves') }}">Elèves</a></li>
-                        <li role="presentation"><a href="{{ path('chapitre_competences') }}">Compétences</a></li>
-=======
                         <li role="presentation" {% if app.request.pathinfo == "/" %} class="active" {% endif %}><a href="{{ path('home') }}">Accueil</a></li>
                         <!--<li role="presentation" {% if app.request.pathinfo == "/" %} class="active" {% endif %}><a href="{{ path('login') }}">Accueil</a></li>-->
                         <li role="presentation" {% if app.request.pathinfo == "/professeurs" %} class="active" {% endif %}><a href="{{ path('professeurs') }}">Professeurs</a></li>
                         <li role="presentation" {% if app.request.pathinfo == "/classe_eleves" %} class="active" {% endif %}><a href="{{ path('classe_eleves') }}">Eleves</a></li>
                         <li role="presentation" {% if app.request.pathinfo == "/chapitre_competences" %} class="active" {% endif %}><a href="{{ path('chapitre_competences') }}">Competences</a></li>
->>>>>>> branche_Khevin
                     </ul>
                 </div>
             <div class="col-xs-9 col-md-9">   
