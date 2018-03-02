@@ -2,3 +2,4 @@ vendor/
 .idea/
 .git
 /app/config/prod.php
+.vscode/
