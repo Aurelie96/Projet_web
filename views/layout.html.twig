@@ -56,10 +56,17 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation" {% if app.request.pathinfo == "/" %} class="active" {% endif %}><a href="{{ path('home') }}">Accueil</a></li>
                         <!--<li role="presentation" {% if app.request.pathinfo == "/" %} class="active" {% endif %}><a href="{{ path('login') }}">Accueil</a></li>-->
-                        <li role="presentation" {% if app.request.pathinfo == "/classe_eleves" %} class="active" {% endif %}><a href="{{ path('classe_eleves') }}">Eleves</a></li>
-                        <li role="presentation" {% if app.request.pathinfo == "/chapitre_competences" %} class="active" {% endif %}><a href="{{ path('chapitre_competences') }}">Competences</a></li>
+                        
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <li role="presentation" {% if app.request.pathinfo == "/classe_eleves" %} class="active" {% endif %}><a href="{{ path('classe_eleves') }}">Elèves</a></li>
+                        {% endif %}
+                        
+                        <li role="presentation" {% if app.request.pathinfo == "/chapitre_competences" %} class="active" {% endif %}><a href="{{ path('chapitre_competences') }}">Compétences</a></li>
                         <li role="presentation" {% if app.request.pathinfo == "/niveau_chapitres" %} class="active" {% endif %}><a href="{{ path('niveau_chapitres') }}">Chapitres</a></li>
-                        <li role="presentation" {% if app.request.pathinfo == "/niveau_classes" %} class="active" {% endif %}><a href="{{ path('niveau_classes') }}">Classes</a></li>
+                        
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <li role="presentation" {% if app.request.pathinfo == "/niveau_classes" %} class="active" {% endif %}><a href="{{ path('niveau_classes') }}">Classes</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             <div class="col-xs-9 col-md-9">   

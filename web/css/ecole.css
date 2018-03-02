@@ -36,9 +36,18 @@ body {
 }
 
 #tableChapitre td:last-child,
-#tableEleves td:last-child {
+#tableEleves td:last-child,
+#tableNiveauClasses td:last-child,
+#tableNiveauChapitres td:last-child{
     width: 65px !important;
     text-align: right;
+}
+
+#tableChapitre td:first-child,
+#tableEleves td:first-child,
+#tableNiveauClasses td:first-child,
+#tableNiveauChapitres td:first-child{
+    text-align: left !important;
 }
 
 @media (max-width:768px) {

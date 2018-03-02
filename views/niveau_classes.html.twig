@@ -4,94 +4,96 @@
 
 {% block content %}
 
-	<div class="well">
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        <div class="well">
 
-			<form class="form-horizontal" action="{{ path('niveau_classes') }}" methode="post">
-				<div class="form-group">
+            <form class="form-horizontal" action="{{ path('niveau_classes') }}" methode="post">
+                <div class="form-group">
 
-					<label class="col-sm-4" for="niveauCom">Trier par niveau' :</label>
+                    <label class="col-xs-12 col-sm-4" for="niveauCom">Trier par niveau :</label>
 
-					<div class="col-sm-6">
-						<select class="form-control" name="niveau" ref="classse">
-								
-								<option value="0" >-- Sélectionner un niveau --</option>
-							{% for niveau in niveaux %}
-								<option value="{{ niveau.id }}">{{ niveau.titre }}</option>
-							{% endfor %}
-						</select>
-					</div>
+                    <div class="col-xs-12 col-sm-6">
+                        <select class="form-control" name="niveau" ref="classse">
+                                
+                                <option value="0" >-- Sélectionner un niveau --</option>
+                            {% for niveau in niveaux %}
+                                <option value="{{ niveau.id }}">{{ niveau.titre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-					<button type="submit" value="ok" class="btn btn-primary">OK</button>
+                    <button type="submit" value="ok" class="largeurMiniBtn col-xs-12 col-sm-2 btn btn-primary">OK</button>
 
-				</div>
-
-
-			</form>
-	  
-
-	</div>
+                </div>
 
 
-    {% for flashMessage in app.session.flashbag.get('success') %}
-    <div class="alert alert-success">
-        {{ flashMessage }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hrefden="true">&times;</span>
-        </button>
-    </div>
-    {% endfor %}
+            </form>
+        
 
-	<div class="tab-content"> 
-    <div class="tab-pane fade in active adminTable" ref="classes">
-        {% if classes %}
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <th>Titre classe</th>
-                        <th></th>  <!-- Actions column -->
-                    </tr>
-                </thead>
-                {% for classe in classes %}
-                    <tr>
-                        <td><a class="classeTitre" href="{{   path('classe', { 'id': classe.id }) }}">{{ classe.nom }}</a></td>
-                         {% if app.user and is_granted('ROLE_ADMIN') %}
-                            <td>
-                                <a href="{{ path('admin_classes_edit', { 'id': classe.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
-
-                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#classeDialog{{ classe.id }}"><span class="glyphicon glyphicon-remove"></span>
-                                </button>
-
-                                 <div class="modal fade" id="classeDialog{{ classe.id }}" ref="classeDialog{{ classe.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hrefden="true">&times;</button>
-                                                <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                Voulez-vous vraiment supprimer cette classe ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                                <a href="{{ path('admin_classes_delete', { 'id': classe.id }) }}" class="btn btn-danger">Confirmer</a>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </table>
         </div>
-        {% else %}
-        <div class="alert alert-warning">Pas de classes trouvées...</div>
-        {% endif %}
-        {% if app.user and is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_classes_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau élève</button></a>
-        {% endif %}
-    </div>
+
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hrefden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+
+        <div class="tab-content"> 
+        <div class="tab-pane fade in active adminTable" ref="classes">
+            {% if classes %}
+            <div class="table-responsive">
+                <table id="tableNiveauClasses" class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Titre classe</th>
+                            <th></th>  <!-- Actions column -->
+                        </tr>
+                    </thead>
+                    {% for classe in classes %}
+                        <tr>
+                            <td><a class="classeTitre" href="{{   path('classe', { 'id': classe.id }) }}">{{ classe.nom }}</a></td>
+                            {% if app.user and is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    <a href="{{ path('admin_classes_edit', { 'id': classe.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                    <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#classeDialog{{ classe.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+
+                                    <div class="modal fade" id="classeDialog{{ classe.id }}" ref="classeDialog{{ classe.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hrefden="true">&times;</button>
+                                                    <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Voulez-vous vraiment supprimer cette classe ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                                    <a href="{{ path('admin_classes_delete', { 'id': classe.id }) }}" class="btn btn-danger">Confirmer</a>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">Pas de classes trouvées...</div>
+            {% endif %}
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_classes_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau niveau</button></a>
+            {% endif %}
+        </div>
+    {% endif %}
  
 </div>
 
