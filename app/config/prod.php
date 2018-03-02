@@ -10,5 +10,6 @@ $app['db.options'] = array(
     'port' => '3306',
     'dbname' => 'php_math',
     'user' => 'root',
-    'password' => 'root',
+    //'password' => 'root',
+    'password' => '',
 );
