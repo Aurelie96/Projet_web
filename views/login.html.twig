@@ -10,11 +10,14 @@
 
 {% block content %}
 {% if app.user %}
-<h2 class="text-center"><b>Bienvenue dans l'application de suivie de compétence</b> <br><br>
-    Cliquez sur une Section pour y accéder</h2>
+<h2 class="text-center"><b>Bienvenue dans votre application de suivi</b> <br><br>
+{#
+    Cliquez sur une section pour y accéder</h2>
+#}
 {% elseif error %}
 <div class="alert alert-danger">
-    <strong>Connexion échouée</strong> {{ error }}
+    <!--<strong>Connexion échouée</strong> {{ error }}-->
+    <strong>Connexion échouée</strong> Identifiant ou mot de passe incorrect.
 </div>
  {% else %}
  <h2 class="text-center"><b>Bonjour <br><br> Veuillez vous identifier</h2>

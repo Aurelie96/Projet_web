@@ -1,2 +1,4 @@
 vendor/
-.vscode/*
+.idea/
+.git
+/app/config/prod.php

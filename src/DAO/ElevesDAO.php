@@ -36,7 +36,7 @@ class ElevesDAO extends DAO
         if ($row)   
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas d'élève pour cette reference " . $id);
+            throw new \Exception("Pas d'élève pour cette référence " . $id);
     }
     
     public function save(Eleves $eleve) {

@@ -42,7 +42,7 @@ class UtilisateursDAO extends DAO implements UserProviderInterface
         if ($row)
             return $this->buildDomainObject($row);
         else
-            throw new \Exception("Pas d'id correspondant " . $id);
+            throw new \Exception("Pas de correspondance " . $id);
     }
 
     /**
