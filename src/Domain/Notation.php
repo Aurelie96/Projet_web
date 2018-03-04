@@ -9,14 +9,14 @@ class Notation
      *
      * @var integer
      */
-    private $idNotation;
+    private $id;
 
     /**
      * Notation libelleNotation.
      *
      * @var string
      */
-    private $libelleNotation;
+    private $libelle;
 
     /**
      * Notation idCompetence.
@@ -32,19 +32,19 @@ class Notation
      */
     private $idEleve;
 
-    public function getIdNotation() {
+    public function getId() {
         return $this->idNotation;
     }
 
-    public function setIdNotation($idNotation) {
+    public function setId($idNotation) {
         $this->idNotation = $idNotation;
     }
 
-    public function getLibelleNotation() {
+    public function getLibelle() {
         return $this->libelleNotation;
     }
 
-    public function setLibelleNotation($libelleNotation) {
+    public function setLibelle($libelleNotation) {
         $this->libelleNotation = $libelleNotation;
     }
 

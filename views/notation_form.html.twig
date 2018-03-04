@@ -1,0 +1,61 @@
+{% extends 'layout.html.twig' %}
+{% set adminMenu = true %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{# Commentaires : formulaire de création ou de modification des notations  #}
+
+{% block content %}
+<h2 class="text-center">{{ block('title') }}</h2>
+
+
+<div class="well">
+{{ form_start(notationForm, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="form-group">
+        {{ form_label(notationForm.libelle, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-6">
+            {{ form_errors(notationForm.libelle) }}
+            {{ form_widget(notationForm.libelle, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(notationForm.idCompetence, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(notationForm.idCompetence) }}
+            {{ form_widget(notationForm.idCompetence, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(notationForm.idNotation, null, { 'label_attr':  {
+            'class': 'col-sm-4 control-label'
+        }}) }}
+        <div class="col-sm-4">
+            {{ form_errors(notationForm.idNotation) }}
+            {{ form_widget(notationForm.idNotation, { 'attr':  {
+                'class': 'form-control'
+            }}) }}
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+
+        <div class="col-sm-offset-4 col-sm-6">
+         <a  class="btn btn-default" href="{{   path('competence_notation') }}">Annuler</a>
+         <input type="submit" class="btn btn-primary" value="Enregistrer" />
+        </div>
+    </div>
+{{ form_end(notationForm) }}
+</div>
+{% endblock %}

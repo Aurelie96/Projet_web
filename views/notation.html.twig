@@ -1,0 +1,17 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Notations{% endblock %}
+
+{% block content %}
+
+<div class="well">
+    <article>
+        <h2><a class="notationTitle" href="">{{ notation.libelle }}</a></h2>
+        <p>niveaux : {{ notation.idCompetence }}</p>
+        <p>élève : {{ notation.idNotation }}</p>
+    </article>
+</div>
+
+
+<a style="float: right; margin : 1%; " class="btn btn-default" href="{{   path('competence_notation') }}"><span class="glyphicon glyphicon-menu-left"></span> Retour</a>
+{% endblock %}

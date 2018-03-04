@@ -18,6 +18,7 @@ use Projet_web\Form\Type\ElevesType;
 use Projet_web\Form\Type\ChapitresType;
 use Projet_web\Form\Type\CompetenceType;
 use Projet_web\Form\Type\ClassesType;
+use Projet_web\Form\Type\NotationType;
 
 //route appelée de base : authentification
 $app->get('/', function(Request $request) use ($app) {
@@ -363,6 +364,80 @@ $app->get('/eleves/{id}', function ($id, Request $request) use ($app) {
 
 
 // -------------------------------------------------- Section Notation----------------------------------------------
+$app->get('/competence_notation', function () use ($app) {
+   
+    $notations = $app['dao.notation']->findAll();
+    $competences = $app['dao.competences']->findAll();
+
+    //Si la variable issue de la liste déroulante a été renseigné on renvoie seulement les competences du chapitre en question
+    if(isset($_GET['competence']) && $_GET['competence'] != 0){   
+        $competence = $_GET['competence'];
+        $notations = $app['dao.notation']->findNotaionsByEleves($competence);
+    }
+    //on affiche la page avec un tableau de competence triables par chapitre
+    return $app['twig']->render('competence_notation.html.twig', array(
+        'notations' => $notations,
+        'competences' => $competences ));
+})->bind('competence_notation');
+
+// Ajouter une nouveau competence
+$app->match('/admin/notations/add', function(Request $request) use ($app) {
+    $competences = $app['dao.competences']->findAll();
+    $notation = new Notations();
+    $notationForm = $app['form.factory']->create(new NotationType(), $chapitre);
+    $notationForm->handleRequest($request);
+
+    //Si la demande a été soumise (formulaire rempli) on enregistre puis on redirige sur la page niveau
+    if ($notationForm->isSubmitted() && $notationForm->isValid()) {
+        $app['dao.notation']->save($notation);
+        $app['session']->getFlashBag()->add('success', 'Note  créé avec succès.');
+        return $app->redirect($app['url_generator']->generate('competence_notation'));
+    }
+    //On affiche le formulaire de chapitres 
+    return $app['twig']->render('notation_form.html.twig', array(
+        'competences' => $competences,
+        'title' => 'Nouvelle note',
+        'notationForm' => $notationForm->createView()));
+})->bind('admin_notations_add');
+
+// Editer un chapitre existant
+$app->match('/admin/notations/{id}/edit', function($id, Request $request) use ($app) {
+    $notation = $app['dao.notation']->find($id);
+    $notationForm = $app['form.factory']->create(new NotationType(), $notation);
+    $notationForm->handleRequest($request);
+    
+    //Si la demande a été soumise on enregistre puis on redirige sur la page niveau
+    if ($notationForm->isSubmitted() && $notationForm->isValid()) {
+        $app['dao.notation']->save($notation);
+        $app['session']->getFlashBag()->add('success', 'Note modifié avec succès.');
+        return $app->redirect($app['url_generator']->generate('competence_notation'));
+    }
+
+    //On affiche par defaut le formulaire de visiteur rempli avec les données du visiteur
+    return $app['twig']->render('notation_form.html.twig', array(
+        'title' => 'Editer une note',
+        'notationForm' => $notationForm->createView()));
+})->bind('admin_notations_edit');
+
+
+// Supprimer un visiteur
+$app->get('/admin/notations/{id}/delete', function($id, Request $request) use ($app) {
+    // Supprimer le visiteur
+    $app['dao.notation']->delete($id);
+    $app['session']->getFlashBag()->add('success', 'Note supprimé avec succès.');
+    // Redirection sur la page des niveaux
+    return $app->redirect($app['url_generator']->generate('competence_notation'));
+})->bind('admin_notations_delete');
+
+
+// Afficher le détail d'un competence 
+$app->get('/notations/{id}', function ($id, Request $request) use ($app) {
+    $notations = $app['dao.notation']->find($id);
+    return $app['twig']->render('notation.html.twig', array(
+        'notations' => $notations));
+})->bind('notation');
+
+
 
 
 // -------------------------------------------------- Section Professeurs----------------------------------------------

@@ -1,0 +1,102 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Choix des notations{% endblock %}
+
+{% block content %}
+
+	<div class="well">
+
+			<form class="form-horizontal" action="{{ path('competence_notation') }}" methode="post">
+				<div class="form-group">
+
+					<label class="col-xs-12 col-sm-4" for="competenceCom">Trier par compétence :</label>
+
+					<div class="col-xs-12 col-sm-6">
+						<select class="form-control" name="competence" ref="classe">
+								
+								<option value="0" >-- Sélectionner une competence --</option>
+							{% for competence in competences %}
+								<option value="{{ competence.id }}">{{ competence.titre }}</option>
+							{% endfor %}
+						</select>
+					</div>
+
+					<button type="submit" value="ok" class="largeurMiniBtn col-xs-12 col-sm-2 btn btn-primary">OK</button>
+
+				</div>
+
+
+			</form>
+	  
+
+	</div>
+
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-success">
+        {{ flashMessage }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hrefden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_notations_add') }}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau chapitre</button></a>
+    {% endif %}
+
+	<div class="tab-content"> 
+    <div class="tab-pane fade in active adminTable" ref="notations">
+        {% if notations %}
+        <div class="table-responsive">
+            <table id="tableCompetencenotations" class="table table-hover table-condensed">
+                <thead>
+                    <tr>
+                        <th>Titre notation</th>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <th></th>  <!-- Actions column -->
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% for notation in notations %}
+                    <tr>
+                        <td><a class="notationTitre" href="{{   path('notation', { 'id': notation.id }) }}">{{ notation.libelle }}</a></td>
+                         {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('admin_notations_edit', { 'id': notation.id }) }}" class="btn btn-info btn-xs" title="Edit"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <button type="button" class="btn btn-danger btn-xs" title="Delete" data-toggle="modal" data-target="#notationDialog{{ notation.id }}"><span class="glyphicon glyphicon-remove"></span>
+                                </button>
+
+                                 <div class="modal fade" id="notationDialog{{ notation.id }}" ref="notationDialog{{ notation.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hrefden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hrefden="true">&times;</button>
+                                                <h4 class="modal-title" ref="myModalLabel">Demande de confirmation </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                Voulez-vous vraiment supprimer cette notation ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                                <a href="{{ path('admin_notations_delete', { 'id': notation.id }) }}" class="btn btn-danger">Confirmer</a>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">Pas de notation trouvées...</div>
+        {% endif %}
+    </div>
+ 
+</div>
+
+
+{% endblock %}

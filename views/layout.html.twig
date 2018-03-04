@@ -59,6 +59,7 @@
                         
                         {% if app.user and is_granted('ROLE_ADMIN') %}
                             <li role="presentation" {% if app.request.pathinfo == "/classe_eleves" %} class="active" {% endif %}><a href="{{ path('classe_eleves') }}">Elèves</a></li>
+                            <li role="presentation" {% if app.request.pathinfo == "/competence_notation" %} class="active" {% endif %}><a href="{{ path('competence_notation') }}">Notation</a></li>
                         {% endif %}
                         
                         <li role="presentation" {% if app.request.pathinfo == "/chapitre_competences" %} class="active" {% endif %}><a href="{{ path('chapitre_competences') }}">Compétences</a></li>

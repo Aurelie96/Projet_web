@@ -44,6 +44,18 @@ class NiveauxDAO extends DAO
         }
     }
     
+    public function Liste(){
+        $sql = "select titreNiveau from niveaux order by idNiveau desc";
+        $result = $this->getDb()->fetchAll($sql);
+        
+        $niveaux = array();
+        foreach ($result as $row) {
+            $niveauId = $row['idNiveau'];
+            $niveaux[$niveauId] = $this->buildDomainObject($row);
+        }
+        return $niveaux;
+    }
+
     public function delete($id) {
         $this->getDb()->delete('niveaux', array('idNiveau' => $id));
     }
